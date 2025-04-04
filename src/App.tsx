@@ -77,32 +77,31 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="sparkle-background absolute inset-0"></div>
       
-      {/* Main content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
-        {/* Header with Logo */}
-        <header className="header flex flex-col items-center mb-16">
-          <button 
-            onClick={() => setActiveTab(null)} 
-            className="flex items-center gap-6 hover:opacity-80 transition-opacity mb-8"
-          >
-            <img
-              src="/assets/images/logo.png"
-              alt="Wizard Press Logo"
-              className="w-36 h-36 object-contain"
-            />
-            <div>
-              <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">
-                Wizard Press
-              </h1>
-              <p className="font-cormorant text-xl text-blue-200 italic">
-                Bringing Magic to the Written Word
-              </p>
-            </div>
-          </button>
+      {/* Header with Logo and Navigation - Moved outside main content */}
+      <header className="w-full bg-black relative z-20">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="flex flex-col items-center mb-8">
+            <button 
+              onClick={() => setActiveTab(null)} 
+              className="flex items-center gap-6 hover:opacity-80 transition-opacity mb-8"
+            >
+              <img
+                src="/assets/images/logo.png"
+                alt="Wizard Press Logo"
+                className="w-36 h-36 object-contain"
+              />
+              <div>
+                <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">
+                  Wizard Press
+                </h1>
+                <p className="font-cormorant text-xl text-blue-200 italic">
+                  Bringing Magic to the Written Word
+                </p>
+              </div>
+            </button>
 
-          {/* Navigation */}
-          <div className="w-full bg-black rounded-full p-2">
-            <nav>
+            {/* Navigation */}
+            <nav className="w-full">
               <div className="flex justify-center gap-6">
                 {[
                   { id: 'books', label: 'Books' },
@@ -124,8 +123,11 @@ function App() {
               </div>
             </nav>
           </div>
-        </header>
-
+        </div>
+      </header>
+      
+      {/* Main content */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
         {/* Landing Content when no tab is selected */}
         {!activeTab && (
           <div className="bg-blue-900/30 backdrop-blur-lg rounded-2xl p-16 shadow-2xl border border-blue-500/20 text-center mb-16">
