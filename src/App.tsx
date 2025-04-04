@@ -26,6 +26,7 @@ function App() {
   const [isFlipped, setIsFlipped] = useState(false);
   const { register: registerSubmission, handleSubmit: handleSubmissionSubmit } = useForm<SubmissionForm>();
   const { register: registerNewsletter, handleSubmit: handleNewsletterSubmit, reset } = useForm<NewsletterForm>();
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     createSparkles();
@@ -40,21 +41,35 @@ function App() {
     reset();
   };
 
-  const handleDownloadSample = () => {
-    // URL to the sample chapter PDF
-    const sampleChapterUrl = '/assets/files/sample-chapter.pdf';
-    
-    // Create a temporary link element
-    const link = document.createElement('a');
-    link.href = sampleChapterUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer'; // Security best practice
-    link.download = 'Done-With-The-Bullshit-Sample-Chapter.pdf';
-    
-    // Trigger the download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownloadSample = async () => {
+    try {
+      setIsDownloading(true);
+      // URL to the sample chapter PDF
+      const sampleChapterUrl = '/assets/files/sample-chapter.pdf';
+      
+      // Check if file exists
+      const response = await fetch(sampleChapterUrl, { method: 'HEAD' });
+      if (!response.ok) {
+        throw new Error('Sample chapter not available');
+      }
+      
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = sampleChapterUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer'; // Security best practice
+      link.download = 'Done-With-The-Bullshit-Sample-Chapter.pdf';
+      
+      // Trigger the download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading sample chapter:', error);
+      alert('Sorry, there was an error downloading the sample chapter. Please try again later.');
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -223,12 +238,13 @@ function App() {
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <button 
                     onClick={handleDownloadSample}
-                    className="bg-blue-500 text-white px-6 py-3 rounded-full font-cinzel 
+                    disabled={isDownloading}
+                    className={`bg-blue-500 text-white px-6 py-3 rounded-full font-cinzel 
                       hover:bg-blue-400 transition-colors duration-300 nav-button-glow
-                      flex items-center justify-center gap-2"
+                      flex items-center justify-center gap-2 ${isDownloading ? 'opacity-75 cursor-not-allowed' : ''}`}
                   >
-                    <Download className="w-5 h-5" />
-                    Download Sample
+                    <Download className={`w-5 h-5 ${isDownloading ? 'animate-bounce' : ''}`} />
+                    {isDownloading ? 'Downloading...' : 'Download Sample'}
                   </button>
                   <button className="bg-blue-900/50 text-blue-200 px-6 py-3 rounded-full font-cinzel
                     hover:bg-blue-800/50 transition-colors duration-300 nav-button-glow
