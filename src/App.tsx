@@ -82,6 +82,35 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const createSparkles = () => {
+    const container = document.querySelector('.sparkle-container');
+    if (!container) return;
+
+    // Clear existing sparkles
+    container.innerHTML = '';
+
+    // Create more sparkles with different sizes
+    for (let i = 0; i < 50; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      
+      // Randomly assign size class
+      const size = Math.random();
+      if (size < 0.4) sparkle.classList.add('small');
+      else if (size < 0.8) sparkle.classList.add('medium');
+      else sparkle.classList.add('large');
+      
+      // Random position
+      sparkle.style.left = `${Math.random() * 100}%`;
+      sparkle.style.top = `${Math.random() * 100}%`;
+      
+      // Random animation delay
+      sparkle.style.animationDelay = `${Math.random() * 5}s`;
+      
+      container.appendChild(sparkle);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="sparkle-background absolute inset-0"></div>
@@ -141,9 +170,32 @@ function App() {
               <p className="text-xl md:text-2xl text-blue-100/90 font-cormorant mb-8">
                 Wizard Press is a boutique publishing house driven by a passion for amplifying bold ideas and unforgettable stories—across all genres, voices, and walks of life.
               </p>
-              <p className="text-lg md:text-xl text-blue-100/80 font-cormorant">
+              <p className="text-lg md:text-xl text-blue-100/80 font-cormorant mb-16">
                 Whether you're an emerging author with a fresh perspective or a seasoned writer with a powerful message, we're here to help bring your vision to life. We believe in genuine collaboration, creative freedom, and providing hands-on support throughout every stage of your publishing journey.
               </p>
+              <div className="grid md:grid-cols-3 gap-12 mt-16">
+                <div className="p-8 bg-blue-900/50 rounded-xl h-full border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300">
+                  <BookOpen className="w-16 h-16 text-blue-400 mx-auto mb-6" />
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Selective Curation</h3>
+                  <p className="text-blue-100 text-xl">
+                    We carefully choose works that offer valuable insights and authentic perspectives
+                  </p>
+                </div>
+                <div className="p-8 bg-blue-900/50 rounded-xl h-full border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300">
+                  <Feather className="w-16 h-16 text-blue-400 mx-auto mb-6" />
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Author Support</h3>
+                  <p className="text-blue-100 text-xl">
+                    Personalized guidance and collaborative partnership throughout your publishing journey
+                  </p>
+                </div>
+                <div className="p-8 bg-blue-900/50 rounded-xl h-full border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300">
+                  <Sparkles className="w-16 h-16 text-blue-400 mx-auto mb-6" />
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Reader Connection</h3>
+                  <p className="text-blue-100 text-xl">
+                    Creating meaningful experiences that resonate with and inspire readers
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}

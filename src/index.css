@@ -61,16 +61,32 @@ body, html {
   padding: 0;
   min-height: 100vh;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Make nav bar solid black */
 .w-full.bg-black {
   background-color: #000 !important;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 /* Ensure content sections have proper spacing */
 section {
   scroll-margin-top: 80px; /* Adjust based on your navbar height */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Main container adjustments */
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+div[class*="min-h-screen"] {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Header styling */
@@ -244,10 +260,99 @@ section {
 
 .sparkle {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
-  animation: sparkle-float linear infinite;
+  animation: float 8s ease-in-out infinite;
+  filter: blur(1px);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Add more sparkles with different sizes and animations */
+.sparkle.small {
+  width: 3px;
+  height: 3px;
+  animation-duration: 6s;
+}
+
+.sparkle.medium {
+  width: 5px;
+  height: 5px;
+  animation-duration: 10s;
+}
+
+.sparkle.large {
+  width: 6px;
+  height: 6px;
+  animation-duration: 12s;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+/* Add a subtle pulse effect to all sparkles */
+.sparkle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.2;
+  }
+}
+
+/* Book Card Glow */
+.glow {
+  box-shadow: 
+    0 0 10px rgba(59, 130, 246, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.2),
+    0 0 30px rgba(59, 130, 246, 0.1);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(59, 130, 246, 0.3),
+      0 0 20px rgba(59, 130, 246, 0.2),
+      0 0 30px rgba(59, 130, 246, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 15px rgba(59, 130, 246, 0.4),
+      0 0 30px rgba(59, 130, 246, 0.3),
+      0 0 45px rgba(59, 130, 246, 0.2);
+  }
 }
 
 /* Custom form styles */
@@ -379,29 +484,5 @@ input[type="checkbox"]:checked::after {
   }
   50% {
     opacity: 0.8;
-  }
-}
-
-/* Book Card Glow */
-.glow {
-  box-shadow: 
-    0 0 10px rgba(59, 130, 246, 0.3),
-    0 0 20px rgba(59, 130, 246, 0.2),
-    0 0 30px rgba(59, 130, 246, 0.1);
-  animation: glowPulse 3s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow: 
-      0 0 10px rgba(59, 130, 246, 0.3),
-      0 0 20px rgba(59, 130, 246, 0.2),
-      0 0 30px rgba(59, 130, 246, 0.1);
-  }
-  50% {
-    box-shadow: 
-      0 0 15px rgba(59, 130, 246, 0.4),
-      0 0 30px rgba(59, 130, 246, 0.3),
-      0 0 45px rgba(59, 130, 246, 0.2);
   }
 }
