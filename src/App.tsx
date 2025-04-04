@@ -84,13 +84,13 @@ function App() {
       <div className="sparkle-background absolute inset-0"></div>
       
       {/* Navigation Bar with Logo - Full width black from top */}
-      <div className="w-full bg-black relative z-20 pt-8 pb-6">
+      <div className="w-full bg-black bg-none relative z-20 pt-8 pb-6">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col">
+          <div className="flex items-center justify-between flex-wrap">
             {/* Logo */}
             <button 
               onClick={() => handleTabChange(null)} 
-              className="flex items-center gap-6 hover:opacity-80 transition-opacity mb-8"
+              className="flex items-center gap-6 hover:opacity-80 transition-opacity"
             >
               <img
                 src="/assets/images/logo.png"
@@ -107,8 +107,8 @@ function App() {
               </div>
             </button>
 
-            {/* Navigation Buttons - Centered */}
-            <div className="flex justify-center gap-6">
+            {/* Navigation Buttons */}
+            <div className="flex gap-4">
               {[
                 { id: 'books', label: 'Books' },
                 { id: 'submit', label: 'Submit Book' },

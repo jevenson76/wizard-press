@@ -10,6 +10,11 @@ body, html {
   scroll-behavior: smooth;
 }
 
+/* Make nav bar solid black */
+.w-full.bg-black {
+  background-color: #000 !important;
+}
+
 /* Ensure content sections have proper spacing */
 section {
   scroll-margin-top: 80px; /* Adjust based on your navbar height */
