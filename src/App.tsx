@@ -84,51 +84,46 @@ function App() {
       <div className="sparkle-background absolute inset-0"></div>
       
       {/* Navigation Bar with Logo - Full width black from top */}
-      <div className="w-full bg-black bg-none relative z-20 pt-8 pb-6">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between flex-wrap">
-            {/* Logo */}
-            <button 
-              onClick={() => handleTabChange(null)} 
-              className="flex items-center gap-6 hover:opacity-80 transition-opacity"
-            >
-              <img
-                src="/assets/images/logo.png"
-                alt="Wizard Press Logo"
-                className="w-[48px] h-[48px] object-contain"
-              />
-              <div>
-                <h1 className="font-cinzel text-3xl font-bold text-blue-400 tracking-wider">
-                  Wizard Press
-                </h1>
-                <p className="font-cormorant text-lg text-blue-200 italic">
-                  Bringing Magic to the Written Word
-                </p>
-              </div>
-            </button>
-
-            {/* Navigation Buttons */}
-            <div className="flex gap-4">
-              {[
-                { id: 'books', label: 'Books' },
-                { id: 'submit', label: 'Submit Book' },
-                { id: 'about', label: 'About' }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id as typeof activeTab)}
-                  className={`px-6 py-2 rounded-full font-cinzel text-base transition-all duration-300 nav-button-glow ${
-                    activeTab === tab.id
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/50'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+      <div className="w-full relative z-20 pt-6 pb-4 bg-black">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap">
+          {/* Logo Section */}
+          <button 
+            onClick={() => handleTabChange(null)}
+            className="flex items-center gap-4 hover:opacity-80 transition-opacity"
+          >
+            <img
+              src="/assets/images/logo.png"
+              alt="Wizard Press Logo"
+              className="w-[144px] h-[144px] object-contain"
+            />
+            <div>
+              <h1 className="font-cinzel text-3xl font-bold text-blue-400 tracking-wider magical-text-strong">Wizard Press</h1>
+              <p className="font-cormorant text-lg text-blue-200 italic magical-text">Bringing Magic to the Written Word</p>
             </div>
+          </button>
+
+          {/* Navigation Buttons */}
+          <div className="flex gap-4 mt-6 md:mt-0">
+            {[
+              { id: 'books', label: 'Books' },
+              { id: 'submit', label: 'Submit Book' },
+              { id: 'about', label: 'About' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabChange(tab.id as typeof activeTab)}
+                className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 bg-gradient-to-r from-blue-900 to-blue-700 shadow-md shadow-blue-500/30 hover:shadow-blue-400/60 hover:scale-105 transition-all duration-300 ${
+                  activeTab === tab.id ? 'bg-blue-500' : ''
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
+
+        {/* Bottom Fade Effect */}
+        <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-b from-black to-transparent pointer-events-none"></div>
       </div>
       
       {/* Main content */}
@@ -136,35 +131,32 @@ function App() {
         {/* Landing Content when no tab is selected */}
         {!activeTab && (
           <div className="bg-blue-900/30 backdrop-blur-lg rounded-2xl p-16 shadow-2xl border border-blue-500/20 text-center mb-16">
-            <h2 className="font-cinzel text-5xl text-blue-300 mb-8">Welcome to Wizard Press</h2>
+            <h2 className="font-cinzel text-5xl text-blue-300 mb-8 magical-text-strong">Welcome to Wizard Press</h2>
             <div className="font-cormorant text-2xl text-blue-100 max-w-4xl mx-auto space-y-10">
               <p className="leading-relaxed">
-                As a boutique publishing house established in 2024, we're dedicated to discovering and nurturing 
-                exceptional voices in personal development, spirituality, and transformative literature.
+                Established in 2024, Wizard Press is a boutique publishing house passionate about amplifying bold ideas and unforgettable stories—across genres and voices.
               </p>
               <p className="leading-relaxed">
-                Our commitment is to both emerging and established authors who bring fresh perspectives 
-                and meaningful insights to their readers. We believe in building lasting partnerships 
-                and providing personalized guidance throughout the publishing journey.
+                Whether you're an emerging author with a fresh perspective or an established writer with a powerful message, we're here to help bring your work to life. We believe in authentic partnerships, creative freedom, and supporting every step of your publishing journey.
               </p>
               <div className="grid md:grid-cols-3 gap-12 mt-16">
                 <div className="p-8 bg-blue-900/50 rounded-xl h-full">
                   <BookOpen className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4">Selective Curation</h3>
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Selective Curation</h3>
                   <p className="text-blue-100 text-xl">
                     We carefully choose works that offer valuable insights and authentic perspectives
                   </p>
                 </div>
                 <div className="p-8 bg-blue-900/50 rounded-xl h-full">
                   <Feather className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4">Author Support</h3>
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Author Support</h3>
                   <p className="text-blue-100 text-xl">
                     Personalized guidance and collaborative partnership throughout your publishing journey
                   </p>
                 </div>
                 <div className="p-8 bg-blue-900/50 rounded-xl h-full">
                   <Sparkles className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4">Reader Connection</h3>
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Reader Connection</h3>
                   <p className="text-blue-100 text-xl">
                     Creating meaningful experiences that resonate with and inspire readers
                   </p>
@@ -178,7 +170,7 @@ function App() {
         {activeTab === 'books' && (
           <div className="bg-blue-900/30 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-blue-500/20">
             <div className="text-center mb-12">
-              <h2 className="font-cinzel text-4xl text-blue-300 mb-4">Transformative Stories</h2>
+              <h2 className="font-cinzel text-4xl text-blue-300 mb-4 magical-text-strong">Transformative Stories</h2>
               <p className="font-cormorant text-xl text-blue-100 max-w-2xl mx-auto">
                 Discover books that challenge perspectives, inspire growth, and illuminate paths to personal transformation.
               </p>
@@ -224,7 +216,7 @@ function App() {
                 </div>
               </div>
               <div className="text-white">
-                <h2 className="font-cinzel text-3xl font-bold mb-2 text-blue-300">
+                <h2 className="font-cinzel text-3xl font-bold mb-2 text-blue-300 magical-text-strong">
                   Done With the Bullshit
                 </h2>
                 <h3 className="font-cormorant text-xl text-blue-200 mb-6">
@@ -271,7 +263,7 @@ function App() {
           <div className="bg-blue-900/30 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-blue-500/20">
             <div className="text-center mb-8">
               <Feather className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-              <h2 className="font-cinzel text-3xl text-blue-300 mb-4">Submit Your Manuscript</h2>
+              <h2 className="font-cinzel text-3xl text-blue-300 mb-4 magical-text-strong">Submit Your Manuscript</h2>
               <p className="font-cormorant text-xl text-blue-100 max-w-2xl mx-auto mb-8">
                 Whether you're a first-time author or an established voice, we welcome manuscripts 
                 that align with our mission to publish meaningful, transformative works. We're 
@@ -419,7 +411,7 @@ function App() {
           <div className="bg-blue-900/30 backdrop-blur-lg rounded-2xl p-8 shadow-2xl border border-blue-500/20">
             <div className="text-center mb-12">
               <Sparkles className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-              <h2 className="font-cinzel text-4xl text-blue-300 mb-6">About Wizard Press</h2>
+              <h2 className="font-cinzel text-4xl text-blue-300 mb-6 magical-text-strong">About Wizard Press</h2>
               <div className="font-cormorant text-xl text-blue-100 max-w-3xl mx-auto space-y-6">
                 <p>
                   Established in 2024, Wizard Press is a boutique publishing house dedicated to 
@@ -440,7 +432,7 @@ function App() {
                   discussions.
                 </p>
                 <div className="mt-12 p-6 bg-blue-900/50 rounded-xl">
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4">Contact Us</h3>
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Contact Us</h3>
                   <div className="space-y-2">
                     <p className="text-blue-100">
                       <strong className="text-blue-300">Email:</strong>{" "}
@@ -462,7 +454,7 @@ function App() {
 
             {/* Newsletter Signup */}
             <div className="max-w-xl mx-auto mt-12 p-8 bg-blue-900/50 rounded-xl">
-              <h3 className="font-cinzel text-2xl text-blue-300 mb-4 text-center">Join Our Magical Community</h3>
+              <h3 className="font-cinzel text-2xl text-blue-300 mb-4 text-center magical-text">Join Our Magical Community</h3>
               <p className="text-blue-100 text-center mb-6 font-cormorant text-lg">
                 Subscribe to receive exclusive updates, author interviews, and magical reading recommendations.
               </p>
