@@ -79,11 +79,11 @@ function App() {
       
       {/* Main content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
-        {/* Header with Navigation */}
-        <header className="flex justify-between items-center mb-16">
+        {/* Header with Logo */}
+        <header className="header flex flex-col items-center mb-16">
           <button 
             onClick={() => setActiveTab(null)} 
-            className="flex items-center gap-6 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-6 hover:opacity-80 transition-opacity mb-8"
           >
             <img
               src="/assets/images/logo.png"
@@ -100,9 +100,10 @@ function App() {
             </div>
           </button>
 
-          <div className="bg-black/50 backdrop-blur-lg rounded-full p-2">
+          {/* Navigation */}
+          <div className="w-full bg-black rounded-full p-2">
             <nav>
-              <div className="flex gap-6">
+              <div className="flex justify-center gap-6">
                 {[
                   { id: 'books', label: 'Books' },
                   { id: 'submit', label: 'Submit Book' },
