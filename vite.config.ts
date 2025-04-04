@@ -10,7 +10,7 @@ export default defineConfig({
       fastRefresh: process.env.NODE_ENV !== 'production',
     }),
   ],
-  base: '/', // Root path for custom domain
+  base: '/wizard-press/', // Base URL for GitHub Pages
   build: {
     outDir: 'dist',
     sourcemap: true,
