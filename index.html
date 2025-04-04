@@ -4,6 +4,72 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Framebuster to prevent injected frames -->
+    <script>
+      // Prevent this page from being framed
+      if (top !== self) top.location.replace(self.location.href);
+      if (window.frames.length !== parent.frames.length) window.top.location = window.location;
+    </script>
+    <style>
+      /* Hide blue admin bars immediately */
+      body > div:last-child:not(#root),
+      body > div[style*="background-color: rgb(0, 0, 255)"],
+      body > div[style*="background-color: blue"],
+      body > iframe,
+      div[style*="background-color: rgb(0, 0, 255)"],
+      div[style*="background-color: blue"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+        position: absolute !important;
+        z-index: -9999 !important;
+      }
+    </style>
+    <script>
+      // Immediately remove blue elements
+      document.addEventListener('DOMContentLoaded', function() {
+        function removeBlueElements() {
+          // Find elements with blue background
+          const allElements = document.querySelectorAll('*');
+          for (let i = 0; i < allElements.length; i++) {
+            const el = allElements[i];
+            // Skip our own elements
+            if (el.id === 'root' || el.closest('#root')) continue;
+            
+            try {
+              const style = window.getComputedStyle(el);
+              if (style.backgroundColor === 'rgb(0, 0, 255)' || 
+                  style.backgroundColor === 'blue' ||
+                  (el.parentElement && el.parentElement.style && 
+                   el.parentElement.style.backgroundColor === 'rgb(0, 0, 255)')) {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.parentElement?.removeChild(el);
+              }
+            } catch (e) {
+              // Ignore errors
+            }
+          }
+        }
+        
+        // Run immediately and after slight delay
+        removeBlueElements();
+        setTimeout(removeBlueElements, 100);
+        setTimeout(removeBlueElements, 500);
+        
+        // Also create observer to catch dynamically added elements
+        const observer = new MutationObserver(function() {
+          removeBlueElements();
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      });
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>Wizard Press - Bringing Magic to the Written Word</title>
