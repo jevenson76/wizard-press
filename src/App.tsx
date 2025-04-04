@@ -77,54 +77,54 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="sparkle-background absolute inset-0"></div>
       
-      {/* Header with Logo and Navigation - Moved outside main content */}
-      <header className="w-full bg-black relative z-20">
+      {/* Header with Logo */}
+      <div className="relative z-20">
         <div className="max-w-6xl mx-auto px-6 py-8">
-          <div className="flex flex-col items-center mb-8">
-            <button 
-              onClick={() => setActiveTab(null)} 
-              className="flex items-center gap-6 hover:opacity-80 transition-opacity mb-8"
-            >
-              <img
-                src="/assets/images/logo.png"
-                alt="Wizard Press Logo"
-                className="w-36 h-36 object-contain"
-              />
-              <div>
-                <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">
-                  Wizard Press
-                </h1>
-                <p className="font-cormorant text-xl text-blue-200 italic">
-                  Bringing Magic to the Written Word
-                </p>
-              </div>
-            </button>
+          <button 
+            onClick={() => setActiveTab(null)} 
+            className="flex items-center gap-6 hover:opacity-80 transition-opacity"
+          >
+            <img
+              src="/assets/images/logo.png"
+              alt="Wizard Press Logo"
+              className="w-36 h-36 object-contain"
+            />
+            <div>
+              <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">
+                Wizard Press
+              </h1>
+              <p className="font-cormorant text-xl text-blue-200 italic">
+                Bringing Magic to the Written Word
+              </p>
+            </div>
+          </button>
+        </div>
+      </div>
 
-            {/* Navigation */}
-            <nav className="w-full">
-              <div className="flex justify-center gap-6">
-                {[
-                  { id: 'books', label: 'Books' },
-                  { id: 'submit', label: 'Submit Book' },
-                  { id: 'about', label: 'About' }
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                    className={`px-8 py-3 rounded-full font-cinzel text-lg transition-all duration-300 nav-button-glow ${
-                      activeTab === tab.id
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/50'
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-            </nav>
+      {/* Navigation Bar - Full width black */}
+      <nav className="w-full bg-black relative z-20">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex justify-center gap-6">
+            {[
+              { id: 'books', label: 'Books' },
+              { id: 'submit', label: 'Submit Book' },
+              { id: 'about', label: 'About' }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`px-8 py-3 rounded-full font-cinzel text-lg transition-all duration-300 nav-button-glow ${
+                  activeTab === tab.id
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/50'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
-      </header>
+      </nav>
       
       {/* Main content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
