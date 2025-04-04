@@ -1,5 +1,5 @@
 import { X, Download } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ChapterPreviewProps {
   isOpen: boolean;
@@ -7,8 +7,8 @@ interface ChapterPreviewProps {
 }
 
 export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
+  const [pdfUrl, setPdfUrl] = useState<string>("");
+  
   // Add keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -18,64 +18,30 @@ export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
+      
+      // Create a blob URL for the PDF to avoid security issues
+      fetch('/assets/files/Done_With_the_Bullshit_Sample.pdf')
+        .then(response => response.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          setPdfUrl(url);
+        })
+        .catch(error => {
+          console.error('Error fetching PDF:', error);
+        });
     }
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
+      
+      // Clean up the blob URL when component unmounts
+      if (pdfUrl) {
+        URL.revokeObjectURL(pdfUrl);
+        setPdfUrl("");
+      }
     };
   }, [isOpen, onClose]);
-
-  // Inject scrollbar styles into iframe
-  useEffect(() => {
-    if (!isOpen || !iframeRef.current) return;
-
-    const injectScrollbarStyles = () => {
-      try {
-        const iframe = iframeRef.current;
-        if (!iframe || !iframe.contentWindow || !iframe.contentDocument) return;
-
-        // Create a style element
-        const style = iframe.contentDocument.createElement('style');
-        style.textContent = `
-          ::-webkit-scrollbar {
-            width: 8px !important;
-            background: #000000 !important;
-          }
-          ::-webkit-scrollbar-thumb {
-            background: #333333 !important;
-            border-radius: 4px !important;
-            border: 2px solid #000000 !important;
-          }
-          ::-webkit-scrollbar-thumb:hover {
-            background: #444444 !important;
-          }
-          ::-webkit-scrollbar-track {
-            background: #000000 !important;
-          }
-          * {
-            scrollbar-width: thin !important;
-            scrollbar-color: #333333 #000000 !important;
-          }
-        `;
-
-        // Append to head when iframe loads
-        iframe.contentDocument.head.appendChild(style);
-      } catch (e) {
-        console.log('Could not inject styles to iframe');
-      }
-    };
-
-    // Add load event listener to iframe
-    const iframe = iframeRef.current;
-    iframe.addEventListener('load', injectScrollbarStyles);
-
-    return () => {
-      if (iframe) {
-        iframe.removeEventListener('load', injectScrollbarStyles);
-      }
-    };
-  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -107,13 +73,24 @@ export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
         <div className="h-full pt-24 pb-20 px-4">
           <div className="w-full h-full rounded-lg overflow-hidden border border-blue-500/20 
             shadow-[0_0_15px_rgba(59,130,246,0.2)] relative group">
-            <iframe
-              ref={iframeRef}
-              src="/assets/files/Done_With_the_Bullshit_Sample.pdf"
-              className="w-full h-full bg-white/5"
-              title="Sample Chapter Preview"
-              style={{ scrollbarWidth: 'thin', scrollbarColor: '#333 #000' }}
-            />
+            {pdfUrl ? (
+              <object
+                data={pdfUrl}
+                type="application/pdf"
+                className="w-full h-full bg-white/5"
+                style={{ scrollbarWidth: 'thin', scrollbarColor: '#333 #000' }}
+              >
+                <div className="w-full h-full flex items-center justify-center bg-black/30">
+                  <p className="text-blue-200 text-xl font-cormorant">
+                    Loading PDF... If it doesn't load, please click the download button below.
+                  </p>
+                </div>
+              </object>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-black/30">
+                <div className="text-blue-200 text-xl font-cormorant">Loading PDF...</div>
+              </div>
+            )}
             
             {/* Subtle overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 
@@ -127,10 +104,25 @@ export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
           <p className="text-blue-200/80 font-cormorant">© 2025 Wizard Press. All rights reserved.</p>
           <button
             onClick={() => {
-              const link = document.createElement('a');
-              link.href = '/assets/files/Done_With_the_Bullshit_Sample.pdf';
-              link.download = 'Done_With_the_Bullshit_Sample.pdf';
-              link.click();
+              if (pdfUrl) {
+                // Use the blob URL for direct download
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = 'Done_With_the_Bullshit_Sample.pdf';
+                link.click();
+              } else {
+                // Fallback to fetch and download
+                fetch('/assets/files/Done_With_the_Bullshit_Sample.pdf')
+                  .then(response => response.blob())
+                  .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'Done_With_the_Bullshit_Sample.pdf';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                  });
+              }
             }}
             className="bg-blue-500/20 text-blue-300 px-6 py-2 rounded-full font-cinzel 
               hover:bg-blue-500/30 transition-all duration-300 flex items-center gap-2
