@@ -36,10 +36,51 @@ function App() {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
+  const createNavSparkles = () => {
+    const container = document.querySelector('.nav-sparkle-container');
+    if (!container) return;
+
+    // Clear existing sparkles
+    container.innerHTML = '';
+
+    // Create nav sparkles
+    for (let i = 0; i < 35; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'nav-sparkle';
+      
+      // Randomly assign size class
+      const size = Math.random();
+      if (size < 0.4) sparkle.classList.add('small');
+      else if (size < 0.8) sparkle.classList.add('medium');
+      else sparkle.classList.add('large');
+      
+      // Random position
+      sparkle.style.left = `${Math.random() * 100}%`;
+      sparkle.style.top = `${Math.random() * 100}%`;
+      
+      // Random animation delay
+      sparkle.style.animationDelay = `${Math.random() * 4}s`;
+      
+      container.appendChild(sparkle);
+    }
+  };
+
   useEffect(() => {
+    // Force scroll to top on mount
+    window.scrollTo(0, 0);
+    
+    // Initialize effects
     createSparkles();
+    createNavSparkles();
     initializeButtonEffects();
-    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Recreate effects more frequently
+    const interval = setInterval(() => {
+      createSparkles();
+      createNavSparkles();
+    }, 8000); // Reduced from 10000 to 8000
+
+    return () => clearInterval(interval);
   }, []);
 
   const onSubmissionSubmit = (data: SubmissionForm) => {
@@ -76,39 +117,10 @@ function App() {
     }
   };
 
-  // Add scroll to top function
+  // Add scroll to top on tab change
   const handleTabChange = (tabId: typeof activeTab) => {
     setActiveTab(tabId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const createSparkles = () => {
-    const container = document.querySelector('.sparkle-container');
-    if (!container) return;
-
-    // Clear existing sparkles
-    container.innerHTML = '';
-
-    // Create more sparkles with different sizes
-    for (let i = 0; i < 50; i++) {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      
-      // Randomly assign size class
-      const size = Math.random();
-      if (size < 0.4) sparkle.classList.add('small');
-      else if (size < 0.8) sparkle.classList.add('medium');
-      else sparkle.classList.add('large');
-      
-      // Random position
-      sparkle.style.left = `${Math.random() * 100}%`;
-      sparkle.style.top = `${Math.random() * 100}%`;
-      
-      // Random animation delay
-      sparkle.style.animationDelay = `${Math.random() * 5}s`;
-      
-      container.appendChild(sparkle);
-    }
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -117,6 +129,7 @@ function App() {
       
       {/* Navigation Bar with Logo - Full width black from top */}
       <div className="w-full relative z-20 pt-6 pb-4 bg-black">
+        <div className="nav-sparkle-container"></div>
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap">
           {/* Logo Section */}
           <button 
@@ -176,22 +189,22 @@ function App() {
               <div className="grid md:grid-cols-3 gap-12 mt-16">
                 <div className="p-8 bg-blue-900/50 rounded-xl h-full border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300">
                   <BookOpen className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Selective Curation</h3>
-                  <p className="text-blue-100 text-xl">
+                  <h3 className="font-cinzel text-3xl text-blue-300 mb-4 magical-text">Selective<br/>Curation</h3>
+                  <p className="text-blue-100/80 text-lg font-cormorant">
                     We carefully choose works that offer valuable insights and authentic perspectives
                   </p>
                 </div>
                 <div className="p-8 bg-blue-900/50 rounded-xl h-full border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300">
                   <Feather className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Author Support</h3>
-                  <p className="text-blue-100 text-xl">
+                  <h3 className="font-cinzel text-3xl text-blue-300 mb-4 magical-text">Author<br/>Support</h3>
+                  <p className="text-blue-100/80 text-lg font-cormorant">
                     Personalized guidance and collaborative partnership throughout your publishing journey
                   </p>
                 </div>
                 <div className="p-8 bg-blue-900/50 rounded-xl h-full border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300">
                   <Sparkles className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Reader Connection</h3>
-                  <p className="text-blue-100 text-xl">
+                  <h3 className="font-cinzel text-3xl text-blue-300 mb-4 magical-text">Reader<br/>Connection</h3>
+                  <p className="text-blue-100/80 text-lg font-cormorant">
                     Creating meaningful experiences that resonate with and inspire readers
                   </p>
                 </div>
