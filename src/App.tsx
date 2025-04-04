@@ -73,55 +73,60 @@ function App() {
     }
   };
 
+  // Add scroll to top function
+  const handleTabChange = (tabId: typeof activeTab) => {
+    setActiveTab(tabId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="sparkle-background absolute inset-0"></div>
       
-      {/* Header with Logo */}
-      <div className="relative z-20">
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          <button 
-            onClick={() => setActiveTab(null)} 
-            className="flex items-center gap-6 hover:opacity-80 transition-opacity"
-          >
-            <img
-              src="/assets/images/logo.png"
-              alt="Wizard Press Logo"
-              className="w-36 h-36 object-contain"
-            />
-            <div>
-              <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">
-                Wizard Press
-              </h1>
-              <p className="font-cormorant text-xl text-blue-200 italic">
-                Bringing Magic to the Written Word
-              </p>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Navigation Bar - Full width black */}
+      {/* Navigation Bar with Logo - Full width black */}
       <nav className="w-full bg-black relative z-20">
         <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex justify-center gap-6">
-            {[
-              { id: 'books', label: 'Books' },
-              { id: 'submit', label: 'Submit Book' },
-              { id: 'about', label: 'About' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`px-8 py-3 rounded-full font-cinzel text-lg transition-all duration-300 nav-button-glow ${
-                  activeTab === tab.id
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/50'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+          <div className="flex justify-between items-center">
+            {/* Logo */}
+            <button 
+              onClick={() => handleTabChange(null)} 
+              className="flex items-center gap-6 hover:opacity-80 transition-opacity"
+            >
+              <img
+                src="/assets/images/logo.png"
+                alt="Wizard Press Logo"
+                className="w-[38px] h-[38px] object-contain" // Increased size by 5%
+              />
+              <div>
+                <h1 className="font-cinzel text-2xl font-bold text-blue-400 tracking-wider">
+                  Wizard Press
+                </h1>
+                <p className="font-cormorant text-sm text-blue-200 italic">
+                  Bringing Magic to the Written Word
+                </p>
+              </div>
+            </button>
+
+            {/* Navigation Buttons */}
+            <div className="flex gap-6">
+              {[
+                { id: 'books', label: 'Books' },
+                { id: 'submit', label: 'Submit Book' },
+                { id: 'about', label: 'About' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id as typeof activeTab)}
+                  className={`px-8 py-3 rounded-full font-cinzel text-lg transition-all duration-300 nav-button-glow ${
+                    activeTab === tab.id
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/50'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </nav>
@@ -504,10 +509,10 @@ function App() {
             <div>
               <h4 className="font-cinzel text-xl text-blue-300 mb-4">Quick Links</h4>
               <ul className="space-y-2 font-cormorant">
-                <li><button onClick={() => setActiveTab(null)} className="text-blue-100 hover:text-blue-300">Home</button></li>
-                <li><button onClick={() => setActiveTab('books')} className="text-blue-100 hover:text-blue-300">Books</button></li>
-                <li><button onClick={() => setActiveTab('submit')} className="text-blue-100 hover:text-blue-300">Submit Manuscript</button></li>
-                <li><button onClick={() => setActiveTab('about')} className="text-blue-100 hover:text-blue-300">About Us</button></li>
+                <li><button onClick={() => handleTabChange(null)} className="text-blue-100 hover:text-blue-300">Home</button></li>
+                <li><button onClick={() => handleTabChange('books')} className="text-blue-100 hover:text-blue-300">Books</button></li>
+                <li><button onClick={() => handleTabChange('submit')} className="text-blue-100 hover:text-blue-300">Submit Manuscript</button></li>
+                <li><button onClick={() => handleTabChange('about')} className="text-blue-100 hover:text-blue-300">About Us</button></li>
               </ul>
             </div>
             <div>
