@@ -134,37 +134,16 @@ function App() {
         {/* Landing Content when no tab is selected */}
         {!activeTab && (
           <div className="bg-blue-900/30 backdrop-blur-lg rounded-2xl p-16 shadow-2xl border border-blue-500/20 text-center mb-16">
-            <h2 className="font-cinzel text-5xl text-blue-300 mb-8 magical-text-strong">Welcome to Wizard Press</h2>
-            <div className="font-cormorant text-2xl text-blue-100 max-w-4xl mx-auto space-y-10">
-              <p className="leading-relaxed">
-                Established in 2024, Wizard Press is a boutique publishing house passionate about amplifying bold ideas and unforgettable stories—across genres and voices.
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-5xl md:text-6xl font-cormorant text-blue-100 mb-8">
+                Welcome to Wizard Press
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100/90 font-cormorant mb-8">
+                Wizard Press is a boutique publishing house driven by a passion for amplifying bold ideas and unforgettable stories—across all genres, voices, and walks of life.
               </p>
-              <p className="leading-relaxed">
-                Whether you're an emerging author with a fresh perspective or an established writer with a powerful message, we're here to help bring your work to life. We believe in authentic partnerships, creative freedom, and supporting every step of your publishing journey.
+              <p className="text-lg md:text-xl text-blue-100/80 font-cormorant">
+                Whether you're an emerging author with a fresh perspective or a seasoned writer with a powerful message, we're here to help bring your vision to life. We believe in genuine collaboration, creative freedom, and providing hands-on support throughout every stage of your publishing journey.
               </p>
-              <div className="grid md:grid-cols-3 gap-12 mt-16">
-                <div className="p-8 bg-blue-900/50 rounded-xl h-full">
-                  <BookOpen className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Selective Curation</h3>
-                  <p className="text-blue-100 text-xl">
-                    We carefully choose works that offer valuable insights and authentic perspectives
-                  </p>
-                </div>
-                <div className="p-8 bg-blue-900/50 rounded-xl h-full">
-                  <Feather className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Author Support</h3>
-                  <p className="text-blue-100 text-xl">
-                    Personalized guidance and collaborative partnership throughout your publishing journey
-                  </p>
-                </div>
-                <div className="p-8 bg-blue-900/50 rounded-xl h-full">
-                  <Sparkles className="w-16 h-16 text-blue-400 mx-auto mb-6" />
-                  <h3 className="font-cinzel text-2xl text-blue-300 mb-4 magical-text">Reader Connection</h3>
-                  <p className="text-blue-100 text-xl">
-                    Creating meaningful experiences that resonate with and inspire readers
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         )}
