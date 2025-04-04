@@ -3,7 +3,6 @@ import { Download, ShoppingCart, BookOpen, Feather, Mail, Send, Sparkles, Facebo
 import { useForm } from 'react-hook-form';
 import { createSparkles } from './sparkleEffects';
 import { stripePromise, createCheckoutSession } from './lib/stripe';
-import { AdminDashboard } from './components/AdminDashboard';
 import { supabase } from './lib/supabase';
 import { ChapterPreview } from './components/ChapterPreview';
 import { initializeButtonEffects } from './buttonEffects';
@@ -31,9 +30,6 @@ function App() {
   const { register: registerSubmission, handleSubmit: handleSubmissionSubmit } = useForm<SubmissionForm>();
   const { register: registerNewsletter, handleSubmit: handleNewsletterSubmit, reset } = useForm<NewsletterForm>();
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [adminPassword, setAdminPassword] = useState('');
-  const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const createNavSparkles = () => {
@@ -116,27 +112,6 @@ function App() {
 
   const handlePreviewClick = () => {
     setIsPreviewOpen(true);
-  };
-
-  const handleAdminLogin = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('admin_credentials')
-        .select('*')
-        .eq('password', adminPassword)
-        .single();
-
-      if (error) throw error;
-      if (data) {
-        setIsAdmin(true);
-        setShowAdminLogin(false);
-      } else {
-        alert('Invalid password');
-      }
-    } catch (err) {
-      console.error('Error logging in:', err);
-      alert('Error logging in');
-    }
   };
 
   // Add scroll to top on tab change with multiple methods
@@ -623,34 +598,6 @@ function App() {
             </p>
           </div>
         </footer>
-
-        {isAdmin ? (
-          <AdminDashboard />
-        ) : showAdminLogin ? (
-          <div className="max-w-md mx-auto mt-8 p-6 bg-white/5 backdrop-blur-sm rounded-lg shadow-xl">
-            <h2 className="text-2xl font-cinzel text-center mb-4">Admin Login</h2>
-            <input
-              type="password"
-              value={adminPassword}
-              onChange={(e) => setAdminPassword(e.target.value)}
-              placeholder="Enter admin password"
-              className="w-full px-4 py-2 bg-white/10 border border-blue-500/20 rounded-lg mb-4"
-            />
-            <button
-              onClick={handleAdminLogin}
-              className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-400 transition-colors"
-            >
-              Login
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={() => setShowAdminLogin(true)}
-            className="fixed bottom-4 right-4 opacity-20 hover:opacity-50 text-xs px-2 py-1 rounded bg-blue-900/30 text-blue-300/40 transition-opacity"
-          >
-            Admin
-          </button>
-        )}
 
         <ChapterPreview 
           isOpen={isPreviewOpen}
