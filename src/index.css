@@ -20,18 +20,18 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
   background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.3);
-  border-radius: 6px;
-  border: 3px solid #000000;
+  background: rgba(16, 24, 39, 0.6);
+  border-radius: 4px;
+  border: 2px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.5);
+  background: rgba(30, 41, 59, 0.8);
 }
 
 ::-webkit-scrollbar-track {
@@ -41,7 +41,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(59, 130, 246, 0.3) #000000;
+  scrollbar-color: rgba(16, 24, 39, 0.6) #000000;
 }
 
 @layer base {
@@ -284,14 +284,13 @@ div[class*="min-h-screen"] {
 }
 
 @keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1);
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
   }
   50% {
-    transform: translate(30px, -30px) scale(1.1);
-  }
-  100% {
-    transform: translate(-30px, 30px) scale(0.9);
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.8;
   }
 }
 
@@ -316,31 +315,22 @@ div[class*="min-h-screen"] {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0) 70%);
+  background: radial-gradient(circle, rgba(66, 99, 146, 0.6) 0%, rgba(59, 130, 246, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   animation: float 8s ease-in-out infinite;
   filter: blur(1px);
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 10px rgba(66, 99, 146, 0.4);
 }
 
 @keyframes float {
   0%, 100% {
     transform: translateY(0) scale(1);
-    opacity: 0.8;
+    opacity: 0.6;
   }
   50% {
     transform: translateY(-20px) scale(1.2);
-    opacity: 1;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
+    opacity: 0.8;
   }
 }
 
@@ -361,7 +351,7 @@ div[class*="min-h-screen"] {
   width: 6px;
   height: 6px;
   animation-duration: 12s;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 15px rgba(66, 99, 146, 0.5);
 }
 
 /* Add a subtle pulse effect to all sparkles */
@@ -370,14 +360,14 @@ div[class*="min-h-screen"] {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(66, 99, 146, 0.3) 0%, transparent 70%);
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.5;
+    opacity: 0.4;
   }
   50% {
     transform: scale(1.5);
@@ -528,16 +518,16 @@ input[type="checkbox"]:checked::after {
 
 /* Sparkle Background */
 .sparkle-background {
-  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(30, 41, 59, 0.2) 0%, transparent 70%);
   animation: sparklePulse 4s ease-in-out infinite;
 }
 
 @keyframes sparklePulse {
   0%, 100% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
   50% {
-    opacity: 0.8;
+    opacity: 0.5;
   }
 }
 
@@ -557,14 +547,14 @@ input[type="checkbox"]:checked::after {
   position: absolute;
   width: 3px;
   height: 3px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.9) 0%, rgba(59, 130, 246, 0) 70%);
+  background: radial-gradient(circle, rgba(66, 99, 146, 0.7) 0%, rgba(59, 130, 246, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   animation: navFloat 4s ease-in-out infinite;
   filter: blur(1px);
   box-shadow: 
-    0 0 8px rgba(59, 130, 246, 0.6),
-    0 0 12px rgba(59, 130, 246, 0.4);
+    0 0 8px rgba(66, 99, 146, 0.5),
+    0 0 12px rgba(66, 99, 146, 0.3);
 }
 
 .nav-sparkle.small {
@@ -578,8 +568,8 @@ input[type="checkbox"]:checked::after {
   height: 4px;
   animation-duration: 5s;
   box-shadow: 
-    0 0 10px rgba(59, 130, 246, 0.7),
-    0 0 15px rgba(59, 130, 246, 0.5);
+    0 0 10px rgba(66, 99, 146, 0.6),
+    0 0 15px rgba(66, 99, 146, 0.4);
 }
 
 .nav-sparkle.large {
@@ -587,8 +577,8 @@ input[type="checkbox"]:checked::after {
   height: 5px;
   animation-duration: 6s;
   box-shadow: 
-    0 0 12px rgba(59, 130, 246, 0.8),
-    0 0 18px rgba(59, 130, 246, 0.6);
+    0 0 12px rgba(66, 99, 146, 0.7),
+    0 0 18px rgba(66, 99, 146, 0.5);
 }
 
 @keyframes navFloat {
