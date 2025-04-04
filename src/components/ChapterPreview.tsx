@@ -1,5 +1,5 @@
-import { X, Download, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect } from 'react';
+import { X, Download } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 interface ChapterPreviewProps {
   isOpen: boolean;
@@ -7,6 +7,8 @@ interface ChapterPreviewProps {
 }
 
 export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
   // Add keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -24,6 +26,57 @@ export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
     };
   }, [isOpen, onClose]);
 
+  // Inject scrollbar styles into iframe
+  useEffect(() => {
+    if (!isOpen || !iframeRef.current) return;
+
+    const injectScrollbarStyles = () => {
+      try {
+        const iframe = iframeRef.current;
+        if (!iframe || !iframe.contentWindow || !iframe.contentDocument) return;
+
+        // Create a style element
+        const style = iframe.contentDocument.createElement('style');
+        style.textContent = `
+          ::-webkit-scrollbar {
+            width: 8px !important;
+            background: #000000 !important;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #333333 !important;
+            border-radius: 4px !important;
+            border: 2px solid #000000 !important;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: #444444 !important;
+          }
+          ::-webkit-scrollbar-track {
+            background: #000000 !important;
+          }
+          * {
+            scrollbar-width: thin !important;
+            scrollbar-color: #333333 #000000 !important;
+          }
+        `;
+
+        // Append to head when iframe loads
+        iframe.contentDocument.head.appendChild(style);
+      } catch (e) {
+        console.log('Could not inject styles to iframe');
+      }
+    };
+
+    // Add load event listener to iframe
+    const iframe = iframeRef.current;
+    iframe.addEventListener('load', injectScrollbarStyles);
+
+    return () => {
+      if (iframe) {
+        iframe.removeEventListener('load', injectScrollbarStyles);
+      }
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -35,7 +88,7 @@ export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
       >
         {/* Top Bar */}
         <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-blue-950/50 to-transparent
-          border-b border-blue-500/20 p-4 flex justify-between items-center backdrop-blur-sm">
+          border-b border-blue-500/20 p-4 flex justify-between items-center backdrop-blur-sm z-10">
           <div>
             <h2 className="font-cinzel text-2xl text-blue-300 mb-1">Done With the Bullshit</h2>
             <p className="text-blue-200/80 font-cormorant text-lg">Sample Chapter</p>
@@ -55,41 +108,23 @@ export function ChapterPreview({ isOpen, onClose }: ChapterPreviewProps) {
           <div className="w-full h-full rounded-lg overflow-hidden border border-blue-500/20 
             shadow-[0_0_15px_rgba(59,130,246,0.2)] relative group">
             <iframe
+              ref={iframeRef}
               src="/assets/files/Done_With_the_Bullshit_Sample.pdf"
               className="w-full h-full bg-white/5"
               title="Sample Chapter Preview"
+              style={{ scrollbarWidth: 'thin', scrollbarColor: '#333 #000' }}
             />
             
-            {/* Navigation Overlay */}
-            <div className="absolute inset-y-0 left-0 right-0 opacity-0 group-hover:opacity-100 
-              transition-opacity duration-300 pointer-events-none">
-              <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/50 to-transparent" />
-              <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/50 to-transparent" />
-            </div>
-
-            {/* Navigation Buttons */}
-            <div className="absolute inset-y-0 left-4 right-4 flex items-center justify-between 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button className="w-12 h-12 rounded-full bg-black/70 border border-blue-500/30 
-                flex items-center justify-center text-blue-300 hover:text-white
-                hover:bg-blue-500/20 transition-all duration-300 hover:scale-110
-                shadow-[0_0_10px_rgba(59,130,246,0.3)]">
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button className="w-12 h-12 rounded-full bg-black/70 border border-blue-500/30 
-                flex items-center justify-center text-blue-300 hover:text-white
-                hover:bg-blue-500/20 transition-all duration-300 hover:scale-110
-                shadow-[0_0_10px_rgba(59,130,246,0.3)]">
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
+            {/* Subtle overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 
+              transition-opacity duration-300 pointer-events-none"></div>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-950/50 to-transparent
-          border-t border-blue-500/20 p-4 flex justify-between items-center backdrop-blur-sm">
-          <p className="text-blue-200/80 font-cormorant">© 2024 Wizard Press. All rights reserved.</p>
+          border-t border-blue-500/20 p-4 flex justify-between items-center backdrop-blur-sm z-10">
+          <p className="text-blue-200/80 font-cormorant">© 2025 Wizard Press. All rights reserved.</p>
           <button
             onClick={() => {
               const link = document.createElement('a');

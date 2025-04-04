@@ -44,6 +44,31 @@ body {
   scrollbar-color: #333333 #000000;
 }
 
+/* Custom scrollbar for iframes */
+iframe {
+  scrollbar-width: thin !important;
+  scrollbar-color: #333333 #000000 !important;
+}
+
+iframe::-webkit-scrollbar {
+  width: 8px;
+  background: #000000;
+}
+
+iframe::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 4px;
+  border: 2px solid #000000;
+}
+
+iframe::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+iframe::-webkit-scrollbar-track {
+  background: #000000;
+}
+
 /* Simple fix for blue admin bar - less aggressive */
 body > div:not(#root)[style*="background-color: rgb(0, 0, 255)"] {
   display: none;
