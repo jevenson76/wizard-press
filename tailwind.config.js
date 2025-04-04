@@ -18,6 +18,8 @@ export default {
           'accent': '#3B82F6',
           'text': '#E2E8F0',
         },
+        background: 'rgb(var(--background))',
+        foreground: 'rgb(var(--foreground))',
       },
     },
   },
