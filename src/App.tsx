@@ -66,21 +66,43 @@ function App() {
   };
 
   useEffect(() => {
-    // Force scroll to top on mount
+    // Force scroll to top on mount using multiple methods
     window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Set timeout to ensure scroll happens after render
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
     
     // Initialize effects
     createSparkles();
     createNavSparkles();
     initializeButtonEffects();
 
+    // Add scroll to top on route change
+    const handleRouteChange = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    // Listen for route changes
+    window.addEventListener('popstate', handleRouteChange);
+
     // Recreate effects more frequently
     const interval = setInterval(() => {
       createSparkles();
       createNavSparkles();
-    }, 8000); // Reduced from 10000 to 8000
+    }, 8000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('popstate', handleRouteChange);
+    };
   }, []);
 
   const onSubmissionSubmit = (data: SubmissionForm) => {
@@ -117,10 +139,20 @@ function App() {
     }
   };
 
-  // Add scroll to top on tab change
+  // Add scroll to top on tab change with multiple methods
   const handleTabChange = (tabId: typeof activeTab) => {
     setActiveTab(tabId);
+    // Force scroll to top with no smooth behavior for immediate effect
     window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Set timeout to ensure scroll happens after state update
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 50);
   };
 
   return (
@@ -317,17 +349,17 @@ function App() {
                 particularly interested in:
               </p>
               <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-                <div className="p-4 bg-blue-900/50 rounded-lg flex flex-col justify-between h-full">
-                  <h3 className="font-cinzel text-lg text-blue-300 mb-2">Fresh Perspectives</h3>
-                  <p className="text-blue-100">Innovative approaches to personal growth and development</p>
+                <div className="p-4 bg-blue-900/50 rounded-lg flex flex-col h-full">
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-3 text-center">Fresh Perspectives</h3>
+                  <p className="text-blue-100/80 font-cormorant text-lg">Innovative approaches to personal growth and development</p>
                 </div>
-                <div className="p-4 bg-blue-900/50 rounded-lg flex flex-col justify-between h-full">
-                  <h3 className="font-cinzel text-lg text-blue-300 mb-2">Practical Wisdom</h3>
-                  <p className="text-blue-100">Actionable insights that guide readers toward positive change</p>
+                <div className="p-4 bg-blue-900/50 rounded-lg flex flex-col h-full">
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-3 text-center">Practical Wisdom</h3>
+                  <p className="text-blue-100/80 font-cormorant text-lg">Actionable insights that guide readers toward positive change</p>
                 </div>
-                <div className="p-4 bg-blue-900/50 rounded-lg flex flex-col justify-between h-full">
-                  <h3 className="font-cinzel text-lg text-blue-300 mb-2">Authentic Voices</h3>
-                  <p className="text-blue-100">Genuine stories that connect and resonate with readers</p>
+                <div className="p-4 bg-blue-900/50 rounded-lg flex flex-col h-full">
+                  <h3 className="font-cinzel text-2xl text-blue-300 mb-3 text-center">Authentic Voices</h3>
+                  <p className="text-blue-100/80 font-cormorant text-lg">Genuine stories that connect and resonate with readers</p>
                 </div>
               </div>
             </div>
@@ -538,16 +570,16 @@ function App() {
 
         {/* Footer */}
         <footer className="mt-16 border-t border-blue-500/20 pt-12">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="grid md:grid-cols-4 gap-6 mb-8">
             <div>
-              <h4 className="font-cinzel text-xl text-blue-300 mb-4">About Us</h4>
+              <h4 className="font-cinzel text-xl text-blue-300 mb-2">About Us</h4>
               <p className="text-blue-100 font-cormorant">
                 Wizard Press is a boutique publishing house bringing magic to the written word since 2024.
               </p>
             </div>
             <div>
-              <h4 className="font-cinzel text-xl text-blue-300 mb-4">Quick Links</h4>
-              <ul className="space-y-2 font-cormorant">
+              <h4 className="font-cinzel text-xl text-blue-300 mb-2">Quick Links</h4>
+              <ul className="space-y-1 font-cormorant">
                 <li><button onClick={() => handleTabChange(null)} className="text-blue-100 hover:text-blue-300">Home</button></li>
                 <li><button onClick={() => handleTabChange('books')} className="text-blue-100 hover:text-blue-300">Books</button></li>
                 <li><button onClick={() => handleTabChange('submit')} className="text-blue-100 hover:text-blue-300">Submit Manuscript</button></li>
@@ -555,8 +587,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h4 className="font-cinzel text-xl text-blue-300 mb-4">Contact</h4>
-              <ul className="space-y-2 font-cormorant">
+              <h4 className="font-cinzel text-xl text-blue-300 mb-2">Contact</h4>
+              <ul className="space-y-1 font-cormorant">
                 <li className="text-blue-100">332 S Michigan Ave</li>
                 <li className="text-blue-100">Suite 121 #5806</li>
                 <li className="text-blue-100">Chicago, IL 60604</li>

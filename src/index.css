@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure scroll behavior */
+html {
+  height: 100%;
+  scroll-behavior: auto !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: auto !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
