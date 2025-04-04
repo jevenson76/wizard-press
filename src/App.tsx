@@ -3,6 +3,9 @@ import { Download, ShoppingCart, BookOpen, Feather, Mail, Send, Sparkles, Facebo
 import { useForm } from 'react-hook-form';
 import { createSparkles } from './sparkleEffects';
 import { stripePromise, createCheckoutSession } from './lib/stripe';
+import { AdminDashboard } from './components/AdminDashboard';
+import { supabase } from './lib/supabase';
+import { ChapterPreview } from './components/ChapterPreview';
 
 type SubmissionForm = {
   name: string;
@@ -27,6 +30,10 @@ function App() {
   const { register: registerSubmission, handleSubmit: handleSubmissionSubmit } = useForm<SubmissionForm>();
   const { register: registerNewsletter, handleSubmit: handleNewsletterSubmit, reset } = useForm<NewsletterForm>();
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   useEffect(() => {
     createSparkles();
@@ -41,39 +48,33 @@ function App() {
     reset();
   };
 
-  const handleDownloadSample = async () => {
+  const handlePreviewClick = () => {
+    setIsPreviewOpen(true);
+  };
+
+  const handleAdminLogin = async () => {
     try {
-      setIsDownloading(true);
-      // URL to the sample chapter PDF
-      const sampleChapterUrl = '/assets/files/sample-chapter.pdf';
-      
-      // Check if file exists
-      const response = await fetch(sampleChapterUrl, { method: 'HEAD' });
-      if (!response.ok) {
-        throw new Error('Sample chapter not available');
+      const { data, error } = await supabase
+        .from('admin_credentials')
+        .select('*')
+        .eq('password', adminPassword)
+        .single();
+
+      if (error) throw error;
+      if (data) {
+        setIsAdmin(true);
+        setShowAdminLogin(false);
+      } else {
+        alert('Invalid password');
       }
-      
-      // Create a temporary link element
-      const link = document.createElement('a');
-      link.href = sampleChapterUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer'; // Security best practice
-      link.download = 'Done-With-The-Bullshit-Sample-Chapter.pdf';
-      
-      // Trigger the download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error downloading sample chapter:', error);
-      alert('Sorry, there was an error downloading the sample chapter. Please try again later.');
-    } finally {
-      setIsDownloading(false);
+    } catch (err) {
+      console.error('Error logging in:', err);
+      alert('Error logging in');
     }
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="sparkle-background absolute inset-0"></div>
       
       {/* Main content */}
@@ -237,14 +238,13 @@ function App() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <button 
-                    onClick={handleDownloadSample}
-                    disabled={isDownloading}
-                    className={`bg-blue-500 text-white px-6 py-3 rounded-full font-cinzel 
+                    onClick={handlePreviewClick}
+                    className="bg-blue-500 text-white px-6 py-3 rounded-full font-cinzel 
                       hover:bg-blue-400 transition-colors duration-300 nav-button-glow
-                      flex items-center justify-center gap-2 ${isDownloading ? 'opacity-75 cursor-not-allowed' : ''}`}
+                      flex items-center justify-center gap-2"
                   >
-                    <Download className={`w-5 h-5 ${isDownloading ? 'animate-bounce' : ''}`} />
-                    {isDownloading ? 'Downloading...' : 'Download Sample'}
+                    <BookOpen className="w-5 h-5" />
+                    Preview Chapter
                   </button>
                   <button className="bg-blue-900/50 text-blue-200 px-6 py-3 rounded-full font-cinzel
                     hover:bg-blue-800/50 transition-colors duration-300 nav-button-glow
@@ -544,6 +544,39 @@ function App() {
             </p>
           </div>
         </footer>
+
+        {isAdmin ? (
+          <AdminDashboard />
+        ) : showAdminLogin ? (
+          <div className="max-w-md mx-auto mt-8 p-6 bg-white/5 backdrop-blur-sm rounded-lg shadow-xl">
+            <h2 className="text-2xl font-cinzel text-center mb-4">Admin Login</h2>
+            <input
+              type="password"
+              value={adminPassword}
+              onChange={(e) => setAdminPassword(e.target.value)}
+              placeholder="Enter admin password"
+              className="w-full px-4 py-2 bg-white/10 border border-blue-500/20 rounded-lg mb-4"
+            />
+            <button
+              onClick={handleAdminLogin}
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-400 transition-colors"
+            >
+              Login
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowAdminLogin(true)}
+            className="fixed bottom-4 right-4 bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full hover:bg-blue-500/30 transition-colors"
+          >
+            Admin
+          </button>
+        )}
+
+        <ChapterPreview 
+          isOpen={isPreviewOpen}
+          onClose={() => setIsPreviewOpen(false)}
+        />
       </div>
     </div>
   );
