@@ -83,19 +83,19 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="sparkle-background absolute inset-0"></div>
       
-      {/* Navigation Bar with Logo - Full width black */}
-      <nav className="w-full bg-black relative z-20">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
+      {/* Navigation Bar with Logo - Full width black from top */}
+      <div className="w-full bg-black relative z-20 pt-8 pb-6">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col">
             {/* Logo */}
             <button 
               onClick={() => handleTabChange(null)} 
-              className="flex items-center gap-6 hover:opacity-80 transition-opacity"
+              className="flex items-center gap-6 hover:opacity-80 transition-opacity mb-8"
             >
               <img
                 src="/assets/images/logo.png"
                 alt="Wizard Press Logo"
-                className="w-[38px] h-[38px] object-contain" // Increased size by 5%
+                className="w-[38px] h-[38px] object-contain"
               />
               <div>
                 <h1 className="font-cinzel text-2xl font-bold text-blue-400 tracking-wider">
@@ -107,8 +107,8 @@ function App() {
               </div>
             </button>
 
-            {/* Navigation Buttons */}
-            <div className="flex gap-6">
+            {/* Navigation Buttons - Centered */}
+            <div className="flex justify-center gap-6">
               {[
                 { id: 'books', label: 'Books' },
                 { id: 'submit', label: 'Submit Book' },
@@ -129,7 +129,7 @@ function App() {
             </div>
           </div>
         </div>
-      </nav>
+      </div>
       
       {/* Main content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
