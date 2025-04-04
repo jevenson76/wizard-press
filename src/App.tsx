@@ -6,6 +6,7 @@ import { stripePromise, createCheckoutSession } from './lib/stripe';
 import { AdminDashboard } from './components/AdminDashboard';
 import { supabase } from './lib/supabase';
 import { ChapterPreview } from './components/ChapterPreview';
+import { initializeButtonEffects } from './buttonEffects';
 
 type SubmissionForm = {
   name: string;
@@ -37,6 +38,8 @@ function App() {
 
   useEffect(() => {
     createSparkles();
+    initializeButtonEffects();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   const onSubmissionSubmit = (data: SubmissionForm) => {
@@ -97,8 +100,8 @@ function App() {
               className="w-[144px] h-[144px] object-contain"
             />
             <div>
-              <h1 className="font-cinzel text-3xl font-bold text-blue-400 tracking-wider magical-text-strong">Wizard Press</h1>
-              <p className="font-cormorant text-lg text-blue-200 italic magical-text">Bringing Magic to the Written Word</p>
+              <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider magical-text-strong">Wizard Press</h1>
+              <p className="font-cormorant text-2xl text-blue-200 italic magical-text">Bringing Magic to the Written Word</p>
             </div>
           </button>
 
@@ -112,9 +115,9 @@ function App() {
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id as typeof activeTab)}
-                className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 bg-gradient-to-r from-blue-900 to-blue-700 shadow-md shadow-blue-500/30 hover:shadow-blue-400/60 hover:scale-105 transition-all duration-300 ${
-                  activeTab === tab.id ? 'bg-blue-500' : ''
-                }`}
+                className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 bg-gradient-to-r from-blue-900 to-blue-700 
+                  shadow-lg shadow-blue-500/30 hover:shadow-blue-400/60 hover:scale-105 transition-all duration-300 
+                  nav-button-glow magical-button ${activeTab === tab.id ? 'active-nav-button' : ''}`}
               >
                 {tab.label}
               </button>
@@ -540,7 +543,7 @@ function App() {
           </div>
           <div className="text-center border-t border-blue-500/20 pt-6 pb-4">
             <p className="text-blue-100 font-cormorant">
-              © 2024 Wizard Press. All rights reserved.
+              © 2025 Wizard Press. All rights reserved.
             </p>
           </div>
         </footer>

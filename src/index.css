@@ -88,14 +88,118 @@ section {
               0 0 20px theme('colors.blue.400');
 }
 
+/* Nav Button Glow */
 .nav-button-glow {
-  box-shadow: 0 0 10px theme('colors.blue.400');
-  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 10px rgba(59, 130, 246, 0.4),
+    0 0 20px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
 }
 
 .nav-button-glow:hover {
-  box-shadow: 0 0 20px theme('colors.blue.400'),
-              0 0 30px theme('colors.blue.500');
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.6),
+    0 0 30px rgba(59, 130, 246, 0.4),
+    0 0 45px rgba(59, 130, 246, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav-button-glow::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  animation: buttonGlow 3s linear infinite;
+  pointer-events: none;
+}
+
+.nav-button-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0) 0%, 
+    rgba(59, 130, 246, 0.3) 50%, 
+    rgba(59, 130, 246, 0) 100%);
+  animation: shimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+.magical-button {
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 0 10px rgba(59, 130, 246, 0.4),
+    0 0 20px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+}
+
+.magical-button:hover {
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.6),
+    0 0 30px rgba(59, 130, 246, 0.4),
+    0 0 45px rgba(59, 130, 246, 0.2);
+  transform: translateY(-2px);
+}
+
+.magical-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+    rgba(59, 130, 246, 0.4) 0%,
+    transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.magical-button:hover::before {
+  opacity: 1;
+}
+
+.magical-button::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0) 0%, 
+    rgba(59, 130, 246, 0.3) 50%, 
+    rgba(59, 130, 246, 0) 100%);
+  animation: shimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+.active-nav-button {
+  background: linear-gradient(45deg, #1E40AF, #3B82F6);
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.6),
+    0 0 40px rgba(59, 130, 246, 0.4);
+}
+
+@keyframes buttonGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Floating orbs */
@@ -275,33 +379,6 @@ input[type="checkbox"]:checked::after {
   }
   50% {
     opacity: 0.8;
-  }
-}
-
-/* Nav Button Glow */
-.nav-button-glow {
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-button-glow::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
-  animation: buttonGlow 3s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes buttonGlow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
 
