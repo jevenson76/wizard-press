@@ -42,7 +42,7 @@ function App() {
 
   const handleDownloadSample = () => {
     // URL to the sample chapter PDF
-    const sampleChapterUrl = 'https://raw.githubusercontent.com/jevenson76/WizardPress/main/sample-chapter.pdf';
+    const sampleChapterUrl = '/assets/files/sample-chapter.pdf';
     
     // Create a temporary link element
     const link = document.createElement('a');
@@ -69,7 +69,7 @@ function App() {
             className="flex items-center gap-6 hover:opacity-80 transition-opacity"
           >
             <img
-              src="https://raw.githubusercontent.com/jevenson76/WizardPress/main/Logo%20-%20Wizard%20Press.png"
+              src="/assets/images/logo.png"
               alt="Wizard Press Logo"
               className="w-36 h-36 object-contain"
             />
@@ -182,7 +182,7 @@ function App() {
                   <div className="aspect-[2/3] rounded-lg overflow-hidden shadow-2xl backface-hidden">
                     <div className="absolute inset-0 border-2 border-blue-400/50 rounded-lg glow"></div>
                     <img
-                      src="https://raw.githubusercontent.com/jevenson76/WizardPress/main/Front%20Cover.png"
+                      src="/assets/images/books/done-with-the-bullshit-front.png"
                       alt="Done With the Bullshit Front Cover"
                       className="w-full h-full object-cover"
                     />
@@ -190,23 +190,11 @@ function App() {
                   
                   <div className="absolute inset-0 aspect-[2/3] rounded-lg overflow-hidden shadow-2xl backface-hidden rotate-y-180 bg-gradient-to-br from-blue-900 to-black">
                     <div className="absolute inset-0 border-2 border-blue-400/50 rounded-lg glow"></div>
-                    <div className="p-6 text-blue-100">
-                      <h3 className="font-cinzel text-2xl text-blue-300 mb-4">About the Book</h3>
-                      <p className="font-cormorant text-lg mb-4">
-                        In "Done With the Bullshit," Sara Richard delivers a powerful wake-up call for anyone tired of 
-                        settling for less in their relationships. Through raw honesty and practical wisdom, she guides 
-                        readers on a journey of self-discovery and empowerment.
-                      </p>
-                      <div className="space-y-4">
-                        <p className="font-cinzel text-sm text-blue-300">What you'll learn:</p>
-                        <ul className="list-disc list-inside space-y-2 font-cormorant">
-                          <li>How to recognize and break free from toxic patterns</li>
-                          <li>Building unshakeable self-worth</li>
-                          <li>Setting healthy boundaries</li>
-                          <li>Attracting authentic connections</li>
-                        </ul>
-                      </div>
-                    </div>
+                    <img
+                      src="/assets/images/books/done-with-the-bullshit-back.png"
+                      alt="Done With the Bullshit Back Cover"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
               </div>
