@@ -95,13 +95,13 @@ function App() {
               <img
                 src="/assets/images/logo.png"
                 alt="Wizard Press Logo"
-                className="w-[38px] h-[38px] object-contain"
+                className="w-[48px] h-[48px] object-contain"
               />
               <div>
-                <h1 className="font-cinzel text-2xl font-bold text-blue-400 tracking-wider">
+                <h1 className="font-cinzel text-3xl font-bold text-blue-400 tracking-wider">
                   Wizard Press
                 </h1>
-                <p className="font-cormorant text-sm text-blue-200 italic">
+                <p className="font-cormorant text-lg text-blue-200 italic">
                   Bringing Magic to the Written Word
                 </p>
               </div>
@@ -117,7 +117,7 @@ function App() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id as typeof activeTab)}
-                  className={`px-8 py-3 rounded-full font-cinzel text-lg transition-all duration-300 nav-button-glow ${
+                  className={`px-6 py-2 rounded-full font-cinzel text-base transition-all duration-300 nav-button-glow ${
                     activeTab === tab.id
                       ? 'bg-blue-500 text-white'
                       : 'bg-blue-900/30 text-blue-200 hover:bg-blue-800/50'
