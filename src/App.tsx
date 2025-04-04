@@ -48,6 +48,7 @@ function App() {
     const link = document.createElement('a');
     link.href = sampleChapterUrl;
     link.target = '_blank';
+    link.rel = 'noopener noreferrer'; // Security best practice
     link.download = 'Done-With-The-Bullshit-Sample-Chapter.pdf';
     
     // Trigger the download
@@ -227,7 +228,7 @@ function App() {
                       flex items-center justify-center gap-2"
                   >
                     <Download className="w-5 h-5" />
-                    Sample Chapter
+                    Download Sample
                   </button>
                   <button className="bg-blue-900/50 text-blue-200 px-6 py-3 rounded-full font-cinzel
                     hover:bg-blue-800/50 transition-colors duration-300 nav-button-glow
