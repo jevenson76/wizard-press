@@ -4,13 +4,8 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      // Disable fast refresh in production
-      fastRefresh: process.env.NODE_ENV !== 'production',
-    }),
-  ],
-  base: '/wizard-press/', // Base URL for GitHub Pages
+  plugins: [react()],
+  base: '/', // Root path for custom domain
   build: {
     outDir: 'dist',
     sourcemap: true,
