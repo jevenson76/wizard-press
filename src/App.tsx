@@ -131,7 +131,10 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
+    <div 
+      className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white" 
+      style={{ position: 'relative', overflow: 'hidden' }}
+    >
       <div className="sparkle-background absolute inset-0"></div>
       
       {/* Navigation Bar with Logo - Full width black from top */}

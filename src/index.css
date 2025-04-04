@@ -25,13 +25,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(16, 24, 39, 0.6);
+  background: #333333;
   border-radius: 4px;
   border: 2px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(30, 41, 59, 0.8);
+  background: #444444;
 }
 
 ::-webkit-scrollbar-track {
@@ -41,7 +41,7 @@ body {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(16, 24, 39, 0.6) #000000;
+  scrollbar-color: #333333 #000000;
 }
 
 @layer base {
@@ -590,4 +590,55 @@ input[type="checkbox"]:checked::after {
     transform: translate(0, -15px) scale(1.2);
     opacity: 0.9;
   }
+}
+
+/* Hide fixed admin UI elements */
+body::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Hide any elements fixed to bottom of screen */
+body > div:last-child:not(#root) {
+  display: none !important;
+}
+
+body > div:not(#root)[style*="position: fixed"],
+body > div:not(#root)[style*="position:fixed"],
+body > div:not(#root)[class*="fixed"],
+body > div:not(#root)[class*="bottom-"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  z-index: -1 !important;
+}
+
+/* Aggressively hide admin bar */
+div[style*="background-color: rgb(0, 0, 255)"],
+div[style*="background-color: #0000ff"],
+div[style*="background-color: blue"],
+div[style*="background: rgb(0, 0, 255)"],
+div[style*="background: #0000ff"],
+div[style*="background: blue"],
+div[style*="background:rgb(0, 0, 255)"],
+div[style*="background:#0000ff"],
+div[style*="background:blue"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  z-index: -9999 !important;
+  top: -1000px !important;
+  left: -1000px !important;
+}
+
+/* Hide any fixed elements with Admin text */
+div:has(> *:contains("Admin")),
+div:has(button:contains("Admin")),
+*[class*="admin-"],
+*[id*="admin-"],
+*[data-*="admin-"] {
+  display: none !important;
 }

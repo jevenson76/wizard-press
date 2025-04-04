@@ -10,12 +10,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.5);
+  background: rgba(51, 51, 51, 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.7);
+  background: rgba(68, 68, 68, 0.7);
 }
 
 /* Smooth scrolling */
@@ -58,4 +58,13 @@ img {
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Fix for blue admin bar */
+body > div[style*="background"],
+body > div[style*="background-color"],
+body > div:last-child:not(#root) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 } 
