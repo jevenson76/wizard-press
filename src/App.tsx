@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, ShoppingCart, BookOpen, Feather, Mail, Send, Sparkles, Facebook, X, Instagram, Linkedin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import emailjs from '@emailjs/browser';
 import { createSparkles, createWandTrail } from './sparkleEffects';
 import { stripePromise, createCheckoutSession } from './lib/stripe';
 import { supabase } from './lib/supabase';
@@ -110,13 +111,58 @@ function App() {
     };
   }, []);
 
-  const onSubmissionSubmit = (data: SubmissionForm) => {
-    console.log('Submission data:', data);
+  const onSubmissionSubmit = async (data: SubmissionForm) => {
+    try {
+      // Send email notification for manuscript submission
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+          from_name: data.name,
+          from_email: data.email,
+          manuscript_title: data.manuscript,
+          genre: data.genre,
+          synopsis: data.synopsis,
+          word_count: data.wordCount,
+          target_audience: data.targetAudience,
+          marketing_plan: data.marketingPlan,
+          bio: data.bio,
+          to_email: 'inquiry@wizard-press.com', // Replace with your email
+          submission_type: 'Manuscript Submission'
+        },
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
+
+      // Show success message
+      alert('Thank you for your submission! We will review it and get back to you soon.');
+    } catch (error) {
+      console.error('Error sending submission:', error);
+      alert('There was an error sending your submission. Please try again later.');
+    }
   };
 
-  const onNewsletterSubmit = (data: NewsletterForm) => {
-    console.log('Newsletter signup:', data);
-    reset();
+  const onNewsletterSubmit = async (data: NewsletterForm) => {
+    try {
+      // Send email notification for newsletter signup
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+          from_name: data.name,
+          from_email: data.email,
+          to_email: 'inquiry@wizard-press.com', // Replace with your email
+          submission_type: 'Newsletter Signup'
+        },
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
+
+      // Show success message and reset form
+      alert('Thank you for subscribing to our newsletter!');
+      reset();
+    } catch (error) {
+      console.error('Error sending newsletter signup:', error);
+      alert('There was an error signing up for the newsletter. Please try again later.');
+    }
   };
 
   const handlePreviewClick = () => {
@@ -319,7 +365,7 @@ function App() {
                     hover:bg-blue-800/50 transition-colors duration-300 nav-button-glow
                     flex items-center justify-center gap-2 border border-blue-400/30">
                     <ShoppingCart className="w-5 h-5" />
-                    Pre-Order Soon
+                    Pre-Order
                   </button>
                 </div>
               </div>
