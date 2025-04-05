@@ -4,16 +4,41 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    <!-- Minimal blue bar fix -->
+    <style>
+      /* Hide only the specific blue admin bar */
+      body > div:not(#root)[style*="background-color: rgb(0, 0, 255)"],
+      body > div:not(#root)[style*="background-color: blue"] {
+        display: none !important;
+      }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/wizard-press/assets/css/style.css">
     <title>Wizard Press - Bringing Magic to the Written Word</title>
-    <script type="module" crossorigin src="/assets/index-BvVSBuFU.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-DDX8ePba.js">
-    <link rel="modulepreload" crossorigin href="/assets/icons-ej-WXN7n.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-BuY1z3tM.css">
+    <script type="module" crossorigin src="/wizard-press/assets/index-BhGc9_J7.js"></script>
+    <link rel="modulepreload" crossorigin href="/wizard-press/assets/vendor-DDX8ePba.js">
+    <link rel="modulepreload" crossorigin href="/wizard-press/assets/icons-ej-WXN7n.js">
+    <link rel="stylesheet" crossorigin href="/wizard-press/assets/index-DPbwoCt5.css">
   </head>
   <body>
     <div id="root"></div>
-    <script src="/assets/js/script.js" defer></script>
+    <script src="/wizard-press/assets/js/script.js" defer></script>
   </body>
 </html>
