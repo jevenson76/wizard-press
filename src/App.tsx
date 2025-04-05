@@ -151,19 +151,18 @@ function App() {
       <div className="nav-bar">
         <div className="w-full relative z-20 pt-6 pb-4 bg-black">
           <div className="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap">
-            {/* Logo Section - No effects or animations */}
-            <div className="logo-container">
+            {/* Logo Section - Solid black background */}
+            <div className="logo-container bg-black">
               <button 
                 onClick={() => handleTabChange(null)}
-                className="flex items-center gap-4 hover:opacity-80 transition-opacity"
-                style={{ background: 'none' }}
+                className="flex items-center gap-4 hover:opacity-80 transition-opacity bg-black"
               >
                 <img
                   src="/assets/images/logo.png"
                   alt="Wizard Press Logo"
                   className="w-[144px] h-[144px] object-contain"
                 />
-                <div>
+                <div className="bg-black">
                   <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">Wizard Press</h1>
                   <p className="font-cormorant text-2xl text-blue-200 italic">Bringing Magic to the Written Word</p>
                 </div>

@@ -812,45 +812,51 @@ div:has(button:contains("Admin")),
 /* Navigation and Logo styles */
 .logo-container {
   position: relative;
-  background-color: black;
-  overflow: hidden;
+  background-color: black !important;
   z-index: 10;
 }
 
-/* Remove any background animations or effects */
+/* Remove ALL effects from logo area */
 .logo-container::before,
-.logo-container::after {
-  content: none !important;
+.logo-container::after,
+.logo-container *::before,
+.logo-container *::after {
   display: none !important;
+  content: none !important;
+  background: none !important;
+  animation: none !important;
+  opacity: 0 !important;
 }
 
-.logo-container > * {
-  position: relative;
-  z-index: 2;
+.logo-container,
+.logo-container *,
+.logo-container > *,
+.logo-container button,
+.logo-container div {
+  background-color: black !important;
+  background: black !important;
+  animation: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border: none !important;
+  overflow: visible !important;
 }
 
 /* Ensure nav bar is solid black */
 .nav-bar {
-  background-color: black;
+  background-color: black !important;
   position: relative;
   z-index: 10;
   width: 100%;
 }
 
-/* Remove any animations from logo area */
-.logo-container .bloom,
-.logo-container .glow,
-.logo-container .magical-button,
-.logo-container .nav-button-glow {
-  animation: none !important;
-  background: none !important;
-}
-
-.logo-container .nav-sparkle-container {
-  display: none !important;
-}
-
-/* Ensure the nav bar background is solid */
 .nav-bar .bg-black {
   background-color: black !important;
+}
+
+/* Remove any sparkle containers from logo area */
+.logo-container .sparkle-container,
+.logo-container .nav-sparkle-container,
+.logo-container .sparkle-background {
+  display: none !important;
 }
