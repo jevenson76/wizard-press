@@ -368,19 +368,19 @@ div[class*="min-h-screen"] {
 .sparkle.small {
   width: 3px;
   height: 3px;
-  animation-duration: 6s;
+  animation-duration: 3s;
 }
 
 .sparkle.medium {
   width: 5px;
   height: 5px;
-  animation-duration: 10s;
+  animation-duration: 4s;
 }
 
 .sparkle.large {
-  width: 6px;
-  height: 6px;
-  animation-duration: 12s;
+  width: 7px;
+  height: 7px;
+  animation-duration: 5s;
   box-shadow: 0 0 15px rgba(66, 99, 146, 0.5);
 }
 
@@ -575,16 +575,14 @@ input[type="checkbox"]:checked::after {
 
 .nav-sparkle {
   position: absolute;
-  width: 3px;
-  height: 3px;
-  background: radial-gradient(circle, rgba(66, 99, 146, 0.7) 0%, rgba(59, 130, 246, 0) 70%);
+  background: radial-gradient(circle, rgba(66, 99, 146, 0.9) 0%, rgba(59, 130, 246, 0) 70%);
   border-radius: 50%;
   pointer-events: none;
   animation: navFloat 4s ease-in-out infinite;
   filter: blur(1px);
   box-shadow: 
-    0 0 8px rgba(66, 99, 146, 0.5),
-    0 0 12px rgba(66, 99, 146, 0.3);
+    0 0 10px rgba(66, 99, 146, 0.7),
+    0 0 15px rgba(66, 99, 146, 0.5);
 }
 
 .nav-sparkle.small {
@@ -596,29 +594,29 @@ input[type="checkbox"]:checked::after {
 .nav-sparkle.medium {
   width: 4px;
   height: 4px;
-  animation-duration: 5s;
+  animation-duration: 4s;
   box-shadow: 
-    0 0 10px rgba(66, 99, 146, 0.6),
-    0 0 15px rgba(66, 99, 146, 0.4);
+    0 0 12px rgba(66, 99, 146, 0.8),
+    0 0 18px rgba(66, 99, 146, 0.6);
 }
 
 .nav-sparkle.large {
-  width: 5px;
-  height: 5px;
-  animation-duration: 6s;
+  width: 6px;
+  height: 6px;
+  animation-duration: 5s;
   box-shadow: 
-    0 0 12px rgba(66, 99, 146, 0.7),
-    0 0 18px rgba(66, 99, 146, 0.5);
+    0 0 15px rgba(66, 99, 146, 0.9),
+    0 0 22px rgba(66, 99, 146, 0.7);
 }
 
 @keyframes navFloat {
   0%, 100% {
     transform: translate(0, 0) scale(1);
-    opacity: 0.4;
+    opacity: 0.5;
   }
   50% {
-    transform: translate(0, -15px) scale(1.2);
-    opacity: 0.9;
+    transform: translate(0, -15px) scale(1.3);
+    opacity: 1;
   }
 }
 
@@ -684,44 +682,44 @@ div:has(button:contains("Admin")),
 
 .sparkle {
   position: absolute;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.9) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: screen;
   animation: sparkle-float 4s ease-in-out infinite;
   filter: blur(1px);
   box-shadow: 
-    0 0 10px rgba(59, 130, 246, 0.6),
-    0 0 20px rgba(59, 130, 246, 0.4),
-    0 0 30px rgba(59, 130, 246, 0.2);
+    0 0 15px rgba(59, 130, 246, 0.8),
+    0 0 30px rgba(59, 130, 246, 0.6),
+    0 0 45px rgba(59, 130, 246, 0.4);
 }
 
 .sparkle.small {
-  width: 2px;
-  height: 2px;
+  width: 3px;
+  height: 3px;
   animation-duration: 3s;
 }
 
 .sparkle.medium {
-  width: 4px;
-  height: 4px;
-  animation-duration: 5s;
+  width: 5px;
+  height: 5px;
+  animation-duration: 4s;
 }
 
 .sparkle.large {
-  width: 6px;
-  height: 6px;
-  animation-duration: 7s;
+  width: 7px;
+  height: 7px;
+  animation-duration: 5s;
 }
 
 @keyframes sparkle-float {
   0%, 100% {
     transform: translateY(0) scale(1);
-    opacity: 0.3;
+    opacity: 0.4;
   }
   50% {
-    transform: translateY(-20px) scale(1.2);
-    opacity: 0.8;
+    transform: translateY(-20px) scale(1.3);
+    opacity: 1;
   }
 }
 
@@ -735,8 +733,8 @@ div:has(button:contains("Admin")),
   content: '';
   position: absolute;
   inset: -50%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
-  animation: bloom-rotate 8s linear infinite;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, transparent 70%);
+  animation: bloom-rotate 6s linear infinite;
   pointer-events: none;
 }
 
@@ -746,9 +744,9 @@ div:has(button:contains("Admin")),
   inset: -1px;
   background: linear-gradient(90deg, 
     rgba(59, 130, 246, 0) 0%, 
-    rgba(59, 130, 246, 0.4) 50%, 
+    rgba(59, 130, 246, 0.6) 50%, 
     rgba(59, 130, 246, 0) 100%);
-  animation: bloom-shimmer 3s linear infinite;
+  animation: bloom-shimmer 2s linear infinite;
   pointer-events: none;
 }
 
@@ -776,44 +774,26 @@ div:has(button:contains("Admin")),
   overflow: hidden;
   transition: all 0.3s ease;
   background: linear-gradient(45deg, 
-    rgba(59, 130, 246, 0.1), 
-    rgba(59, 130, 246, 0.2)
+    rgba(59, 130, 246, 0.2), 
+    rgba(59, 130, 246, 0.3)
   );
   box-shadow: 
-    0 0 15px rgba(59, 130, 246, 0.3),
-    0 0 30px rgba(59, 130, 246, 0.2),
-    inset 0 0 10px rgba(59, 130, 246, 0.2);
+    0 0 20px rgba(59, 130, 246, 0.4),
+    0 0 40px rgba(59, 130, 246, 0.2),
+    inset 0 0 15px rgba(59, 130, 246, 0.3);
 }
 
 .magical-button:hover {
   transform: translateY(-2px);
   background: linear-gradient(45deg, 
-    rgba(59, 130, 246, 0.2), 
-    rgba(59, 130, 246, 0.3)
+    rgba(59, 130, 246, 0.3), 
+    rgba(59, 130, 246, 0.4)
   );
   box-shadow: 
-    0 0 20px rgba(59, 130, 246, 0.6),
-    0 0 40px rgba(59, 130, 246, 0.4),
-    0 0 60px rgba(59, 130, 246, 0.2),
-    inset 0 0 15px rgba(59, 130, 246, 0.3);
-}
-
-.magical-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at var(--x, 50%) var(--y, 50%), 
-    rgba(59, 130, 246, 0.4) 0%,
-    transparent 50%
-  );
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-
-.magical-button:hover::before {
-  opacity: 1;
+    0 0 25px rgba(59, 130, 246, 0.7),
+    0 0 50px rgba(59, 130, 246, 0.5),
+    0 0 75px rgba(59, 130, 246, 0.3),
+    inset 0 0 20px rgba(59, 130, 246, 0.4);
 }
 
 .magical-button::after {
@@ -822,39 +802,55 @@ div:has(button:contains("Admin")),
   inset: -1px;
   background: linear-gradient(90deg, 
     rgba(59, 130, 246, 0) 0%, 
-    rgba(59, 130, 246, 0.4) 50%, 
+    rgba(59, 130, 246, 0.6) 50%, 
     rgba(59, 130, 246, 0) 100%
   );
   animation: button-shimmer 2s linear infinite;
   pointer-events: none;
 }
 
-@keyframes button-shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+/* Navigation and Logo styles */
+.logo-container {
+  position: relative;
+  background-color: black;
+  overflow: hidden;
+  z-index: 10;
 }
 
-/* Floating Orbs */
-.floating-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  pointer-events: none;
-  mix-blend-mode: screen;
-  animation: orb-float infinite ease-in-out alternate;
+/* Remove any background animations or effects */
+.logo-container::before,
+.logo-container::after {
+  content: none !important;
+  display: none !important;
 }
 
-@keyframes orb-float {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translate(20px, -20px) scale(1.1);
-    opacity: 0.6;
-  }
+.logo-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure nav bar is solid black */
+.nav-bar {
+  background-color: black;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* Remove any animations from logo area */
+.logo-container .bloom,
+.logo-container .glow,
+.logo-container .magical-button,
+.logo-container .nav-button-glow {
+  animation: none !important;
+  background: none !important;
+}
+
+.logo-container .nav-sparkle-container {
+  display: none !important;
+}
+
+/* Ensure the nav bar background is solid */
+.nav-bar .bg-black {
+  background-color: black !important;
 }

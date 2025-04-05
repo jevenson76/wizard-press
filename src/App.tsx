@@ -67,17 +67,16 @@ function App() {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
     
-    // Set timeout to ensure scroll happens after render
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }, 100);
-    
-    // Initialize effects
+    // Initialize effects immediately
     createSparkles();
     createNavSparkles();
     initializeButtonEffects();
+
+    // Create more effects after a short delay to ensure smooth loading
+    setTimeout(() => {
+      createSparkles();
+      createNavSparkles();
+    }, 100);
 
     // Add scroll to top on route change
     const handleRouteChange = () => {
@@ -91,8 +90,8 @@ function App() {
 
     // Add mouse move handler for wand trail
     const handleMouseMove = (e: MouseEvent) => {
-      // Only create trail occasionally to avoid overwhelming the DOM
-      if (Math.random() > 0.1) return;
+      // Create trail more frequently
+      if (Math.random() > 0.2) return;
       createWandTrail(e.clientX, e.clientY);
     };
 
@@ -102,7 +101,7 @@ function App() {
     const interval = setInterval(() => {
       createSparkles();
       createNavSparkles();
-    }, 8000);
+    }, 4000); // Reduced from 8000 to 4000
 
     return () => {
       clearInterval(interval);
@@ -149,46 +148,50 @@ function App() {
       <div className="sparkle-background absolute inset-0"></div>
       
       {/* Navigation Bar with Logo - Full width black from top */}
-      <div className="w-full relative z-20 pt-6 pb-4 bg-black">
-        <div className="nav-sparkle-container"></div>
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap">
-          {/* Logo Section */}
-          <button 
-            onClick={() => handleTabChange(null)}
-            className="flex items-center gap-4 hover:opacity-80 transition-opacity bloom"
-          >
-            <img
-              src="/assets/images/logo.png"
-              alt="Wizard Press Logo"
-              className="w-[144px] h-[144px] object-contain"
-            />
-            <div>
-              <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider magical-text-strong">Wizard Press</h1>
-              <p className="font-cormorant text-2xl text-blue-200 italic magical-text">Bringing Magic to the Written Word</p>
-            </div>
-          </button>
-
-          {/* Navigation Buttons */}
-          <div className="flex gap-4">
-            {[
-              { id: 'books', label: 'Books' },
-              { id: 'submit', label: 'Submit Book' },
-              { id: 'about', label: 'About' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id as typeof activeTab)}
-                className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 
-                  magical-button bloom ${activeTab === tab.id ? 'active-nav-button' : ''}`}
+      <div className="nav-bar">
+        <div className="w-full relative z-20 pt-6 pb-4 bg-black">
+          <div className="max-w-6xl mx-auto px-6 flex items-center justify-between flex-wrap">
+            {/* Logo Section - No effects or animations */}
+            <div className="logo-container">
+              <button 
+                onClick={() => handleTabChange(null)}
+                className="flex items-center gap-4 hover:opacity-80 transition-opacity"
+                style={{ background: 'none' }}
               >
-                {tab.label}
+                <img
+                  src="/assets/images/logo.png"
+                  alt="Wizard Press Logo"
+                  className="w-[144px] h-[144px] object-contain"
+                />
+                <div>
+                  <h1 className="font-cinzel text-4xl font-bold text-blue-400 tracking-wider">Wizard Press</h1>
+                  <p className="font-cormorant text-2xl text-blue-200 italic">Bringing Magic to the Written Word</p>
+                </div>
               </button>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        {/* Bottom Fade Effect */}
-        <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-b from-black to-transparent pointer-events-none"></div>
+            {/* Navigation Buttons */}
+            <div className="flex gap-4">
+              {[
+                { id: 'books', label: 'Books' },
+                { id: 'submit', label: 'Submit Book' },
+                { id: 'about', label: 'About' }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id as typeof activeTab)}
+                  className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 
+                    magical-button bloom ${activeTab === tab.id ? 'active-nav-button' : ''}`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom Fade Effect */}
+          <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-b from-black to-transparent pointer-events-none"></div>
+        </div>
       </div>
       
       {/* Main content */}
