@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, ShoppingCart, BookOpen, Feather, Mail, Send, Sparkles, Facebook, X, Instagram, Linkedin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { createSparkles } from './sparkleEffects';
+import { createSparkles, createWandTrail } from './sparkleEffects';
 import { stripePromise, createCheckoutSession } from './lib/stripe';
 import { supabase } from './lib/supabase';
 import { ChapterPreview } from './components/ChapterPreview';
@@ -89,6 +89,15 @@ function App() {
     // Listen for route changes
     window.addEventListener('popstate', handleRouteChange);
 
+    // Add mouse move handler for wand trail
+    const handleMouseMove = (e: MouseEvent) => {
+      // Only create trail occasionally to avoid overwhelming the DOM
+      if (Math.random() > 0.1) return;
+      createWandTrail(e.clientX, e.clientY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
     // Recreate effects more frequently
     const interval = setInterval(() => {
       createSparkles();
@@ -98,6 +107,7 @@ function App() {
     return () => {
       clearInterval(interval);
       window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -135,6 +145,7 @@ function App() {
       className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white" 
       style={{ position: 'relative', overflow: 'hidden' }}
     >
+      <div className="sparkle-container"></div>
       <div className="sparkle-background absolute inset-0"></div>
       
       {/* Navigation Bar with Logo - Full width black from top */}
@@ -144,7 +155,7 @@ function App() {
           {/* Logo Section */}
           <button 
             onClick={() => handleTabChange(null)}
-            className="flex items-center gap-4 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-4 hover:opacity-80 transition-opacity bloom"
           >
             <img
               src="/assets/images/logo.png"
@@ -158,7 +169,7 @@ function App() {
           </button>
 
           {/* Navigation Buttons */}
-          <div className="flex gap-4 mt-6 md:mt-0">
+          <div className="flex gap-4">
             {[
               { id: 'books', label: 'Books' },
               { id: 'submit', label: 'Submit Book' },
@@ -167,9 +178,8 @@ function App() {
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id as typeof activeTab)}
-                className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 bg-gradient-to-r from-blue-900 to-blue-700 
-                  shadow-lg shadow-blue-500/30 hover:shadow-blue-400/60 hover:scale-105 transition-all duration-300 
-                  nav-button-glow magical-button ${activeTab === tab.id ? 'active-nav-button' : ''}`}
+                className={`px-6 py-2 rounded-full font-cinzel text-base text-blue-200 
+                  magical-button bloom ${activeTab === tab.id ? 'active-nav-button' : ''}`}
               >
                 {tab.label}
               </button>

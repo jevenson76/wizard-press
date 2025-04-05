@@ -672,3 +672,189 @@ div:has(button:contains("Admin")),
 *[data-*="admin-"] {
   display: none !important;
 }
+
+/* Enhanced Sparkle Effects */
+.sparkle-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: sparkle-float 4s ease-in-out infinite;
+  filter: blur(1px);
+  box-shadow: 
+    0 0 10px rgba(59, 130, 246, 0.6),
+    0 0 20px rgba(59, 130, 246, 0.4),
+    0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+.sparkle.small {
+  width: 2px;
+  height: 2px;
+  animation-duration: 3s;
+}
+
+.sparkle.medium {
+  width: 4px;
+  height: 4px;
+  animation-duration: 5s;
+}
+
+.sparkle.large {
+  width: 6px;
+  height: 6px;
+  animation-duration: 7s;
+}
+
+@keyframes sparkle-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced Bloom Effects */
+.bloom {
+  position: relative;
+  overflow: hidden;
+}
+
+.bloom::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+  animation: bloom-rotate 8s linear infinite;
+  pointer-events: none;
+}
+
+.bloom::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0) 0%, 
+    rgba(59, 130, 246, 0.4) 50%, 
+    rgba(59, 130, 246, 0) 100%);
+  animation: bloom-shimmer 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes bloom-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bloom-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Enhanced Button Effects */
+.magical-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: linear-gradient(45deg, 
+    rgba(59, 130, 246, 0.1), 
+    rgba(59, 130, 246, 0.2)
+  );
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.3),
+    0 0 30px rgba(59, 130, 246, 0.2),
+    inset 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.magical-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(45deg, 
+    rgba(59, 130, 246, 0.2), 
+    rgba(59, 130, 246, 0.3)
+  );
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.6),
+    0 0 40px rgba(59, 130, 246, 0.4),
+    0 0 60px rgba(59, 130, 246, 0.2),
+    inset 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.magical-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%), 
+    rgba(59, 130, 246, 0.4) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.magical-button:hover::before {
+  opacity: 1;
+}
+
+.magical-button::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0) 0%, 
+    rgba(59, 130, 246, 0.4) 50%, 
+    rgba(59, 130, 246, 0) 100%
+  );
+  animation: button-shimmer 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes button-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Floating Orbs */
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: orb-float infinite ease-in-out alternate;
+}
+
+@keyframes orb-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.1);
+    opacity: 0.6;
+  }
+}

@@ -1,119 +1,101 @@
 export function createSparkles() {
-  const container = document.querySelector('.sparkle-background');
-  const containerWidth = container?.offsetWidth || window.innerWidth;
-  const containerHeight = container?.offsetHeight || window.innerHeight;
-  
-  // Create 30-50 sparkles
-  const sparkleCount = Math.floor(Math.random() * 20) + 30;
+  const container = document.querySelector('.sparkle-container');
+  if (!container) return;
+
+  // Clear existing sparkles
+  container.innerHTML = '';
+
+  // Create sparkles
+  const sparkleCount = Math.floor(Math.random() * 20) + 30; // 30-50 sparkles
   
   for (let i = 0; i < sparkleCount; i++) {
     const sparkle = document.createElement('div');
-    sparkle.classList.add('sparkle');
+    sparkle.className = 'sparkle';
+    
+    // Random size class
+    const size = Math.random();
+    if (size < 0.4) sparkle.classList.add('small');
+    else if (size < 0.8) sparkle.classList.add('medium');
+    else sparkle.classList.add('large');
     
     // Random position
-    const posX = Math.random() * containerWidth;
-    const posY = Math.random() * containerHeight;
+    sparkle.style.left = `${Math.random() * 100}%`;
+    sparkle.style.top = `${Math.random() * 100}%`;
     
-    // Random size (some slightly larger)
-    const size = Math.random() * 3 + 1;
+    // Random animation delay
+    sparkle.style.animationDelay = `${Math.random() * 4}s`;
     
-    // Random delay and duration
-    const delay = Math.random() * 5;
-    const duration = Math.random() * 4 + 4;
-    
-    // Apply styles
-    sparkle.style.left = `${posX}px`;
-    sparkle.style.top = `${posY}px`;
-    sparkle.style.width = `${size}px`;
-    sparkle.style.height = `${size}px`;
-    sparkle.style.animationDelay = `${delay}s`;
-    sparkle.style.animationDuration = `${duration}s`;
-    
-    container?.appendChild(sparkle);
+    container.appendChild(sparkle);
   }
-  
-  // Add occasional "wand trail" effect
-  setInterval(() => {
-    createWandTrail(container, containerWidth, containerHeight);
-  }, 8000);
 
-  // Add floating orbs
+  // Create floating orbs
   createFloatingOrbs(container);
 }
 
-function createWandTrail(container: Element | null, containerWidth: number, containerHeight: number) {
-  if (!container) return;
-  
-  // Random starting point
-  const startX = Math.random() * containerWidth;
-  const startY = Math.random() * containerHeight;
-  
-  // Random end point (curved path)
-  const endX = Math.random() * containerWidth;
-  const endY = Math.random() * containerHeight;
-  
-  // Create 15-25 sparkles along the path
-  const trailCount = Math.floor(Math.random() * 10) + 15;
-  
-  for (let i = 0; i < trailCount; i++) {
-    const progress = i / trailCount;
-    
-    // Create curved path using quadratic bezier
-    const controlX = (startX + endX) / 2 + (Math.random() * 100 - 50);
-    const controlY = (startY + endY) / 2 + (Math.random() * 100 - 50);
-    
-    const t = progress;
-    const posX = Math.pow(1-t, 2) * startX + 2 * (1-t) * t * controlX + Math.pow(t, 2) * endX;
-    const posY = Math.pow(1-t, 2) * startY + 2 * (1-t) * t * controlY + Math.pow(t, 2) * endY;
-    
-    const trailSparkle = document.createElement('div');
-    trailSparkle.classList.add('sparkle', 'trail-sparkle');
-    
-    // Larger, brighter sparkles for the trail
-    const size = Math.random() * 4 + 2;
-    
-    trailSparkle.style.left = `${posX}px`;
-    trailSparkle.style.top = `${posY}px`;
-    trailSparkle.style.width = `${size}px`;
-    trailSparkle.style.height = `${size}px`;
-    trailSparkle.style.boxShadow = '0 0 8px 2px rgba(0, 180, 255, 0.8)';
-    trailSparkle.style.animationDelay = `${progress * 1.5}s`;
-    trailSparkle.style.animationDuration = '3s';
-    
-    container.appendChild(trailSparkle);
-    
-    // Remove trail sparkles after animation
-    setTimeout(() => {
-      trailSparkle.remove();
-    }, 3000 + progress * 1500);
-  }
-}
-
-function createFloatingOrbs(container: Element | null) {
-  if (!container) return;
-
+function createFloatingOrbs(container: Element) {
   const orbCount = 5;
   const orbColors = [
-    'rgba(64, 156, 255, 0.3)',
-    'rgba(100, 180, 255, 0.3)',
-    'rgba(150, 200, 255, 0.3)',
+    'rgba(59, 130, 246, 0.3)',  // Blue
+    'rgba(96, 165, 250, 0.3)',  // Light blue
+    'rgba(147, 197, 253, 0.3)', // Lighter blue
   ];
 
   for (let i = 0; i < orbCount; i++) {
     const orb = document.createElement('div');
-    orb.classList.add('floating-orb');
+    orb.className = 'floating-orb';
     
+    // Random size (100-200px)
     const size = Math.random() * 100 + 100;
-    const color = orbColors[Math.floor(Math.random() * orbColors.length)];
-    
     orb.style.width = `${size}px`;
     orb.style.height = `${size}px`;
-    orb.style.backgroundColor = color;
+    
+    // Random color
+    orb.style.backgroundColor = orbColors[Math.floor(Math.random() * orbColors.length)];
+    
+    // Random position
     orb.style.left = `${Math.random() * 100}%`;
     orb.style.top = `${Math.random() * 100}%`;
-    orb.style.animationDuration = `${Math.random() * 10 + 20}s`;
-    orb.style.animationDelay = `-${Math.random() * 20}s`;
+    
+    // Random animation duration and delay
+    orb.style.animationDuration = `${Math.random() * 10 + 20}s`; // 20-30s
+    orb.style.animationDelay = `-${Math.random() * 20}s`; // Start at random points
     
     container.appendChild(orb);
+  }
+}
+
+// Create wand trail effect
+export function createWandTrail(x: number, y: number) {
+  const container = document.querySelector('.sparkle-container');
+  if (!container) return;
+
+  const trailCount = 10;
+  const baseSize = 4;
+  
+  for (let i = 0; i < trailCount; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle medium';
+    
+    // Position around the cursor
+    const angle = (i / trailCount) * Math.PI * 2;
+    const distance = Math.random() * 20 + 10;
+    const offsetX = Math.cos(angle) * distance;
+    const offsetY = Math.sin(angle) * distance;
+    
+    sparkle.style.left = `${x + offsetX}px`;
+    sparkle.style.top = `${y + offsetY}px`;
+    
+    // Size decreases as the trail fades
+    const size = baseSize * (1 - i / trailCount);
+    sparkle.style.width = `${size}px`;
+    sparkle.style.height = `${size}px`;
+    
+    // Fade out quickly
+    sparkle.style.animation = 'sparkle-float 1s ease-out forwards';
+    
+    container.appendChild(sparkle);
+    
+    // Remove after animation
+    setTimeout(() => sparkle.remove(), 1000);
   }
 }
