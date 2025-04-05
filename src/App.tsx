@@ -351,7 +351,7 @@ function App() {
                     Coming Summer 2025 – Clear your bookshelf... and your dating roster.
                   </p>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <div className="flex gap-4 mt-8">
                   <button 
                     onClick={handlePreviewClick}
                     className="bg-blue-500 text-white px-6 py-3 rounded-full font-cinzel 
@@ -361,9 +361,11 @@ function App() {
                     <BookOpen className="w-5 h-5" />
                     Preview Chapter
                   </button>
-                  <button className="bg-blue-900/50 text-blue-200 px-6 py-3 rounded-full font-cinzel
-                    hover:bg-blue-800/50 transition-colors duration-300 nav-button-glow
-                    flex items-center justify-center gap-2 border border-blue-400/30">
+                  <button 
+                    className="bg-blue-900/50 text-blue-200 px-6 py-3 rounded-full font-cinzel
+                      hover:bg-blue-800/50 transition-colors duration-300 nav-button-glow
+                      flex items-center justify-center gap-2 border border-blue-400/30"
+                  >
                     <ShoppingCart className="w-5 h-5" />
                     Pre-Order
                   </button>
