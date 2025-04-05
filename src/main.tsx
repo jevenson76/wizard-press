@@ -52,7 +52,7 @@ function Root() {
 
   return (
     <StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename="/wizard-press">
         <App />
       </BrowserRouter>
     </StrictMode>
